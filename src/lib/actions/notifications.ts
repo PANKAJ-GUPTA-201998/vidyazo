@@ -171,3 +171,13 @@ export async function getUnreadCount() {
   if (error) return 0;
   return count || 0;
 }
+
+// ============================================================
+// SEND ALL PENDING REPORTS (CRON)
+// ============================================================
+
+export async function sendAllPendingReports() {
+  console.log("sendAllPendingReports cron stub called");
+  // Implement logic to send pending reports via WhatsApp/Email
+  return { success: true };
+}
