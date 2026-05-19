@@ -3,11 +3,10 @@ import { getPayments, getPaymentSummary } from "@/lib/actions/payments";
 import PaymentsClient from "./client";
 import { format } from "date-fns";
 
-export default async function PaymentsPage({
-  searchParams,
-}: {
-  searchParams: { month?: string };
+export default async function PaymentsPage(props: {
+  searchParams: Promise<{ month?: string }>;
 }) {
+  const searchParams = await props.searchParams;
   const currentMonth = format(new Date(), "yyyy-MM");
   const selectedMonth = searchParams.month || currentMonth;
 
