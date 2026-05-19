@@ -70,8 +70,11 @@ export function TeachersSection() {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-[#e94560] to-[#ff6b81] flex items-center justify-center text-white text-3xl font-bold">
-                          {teacher.full_name.charAt(0)}
+                        <div className="w-full h-full bg-gradient-to-br from-[#e94560] to-[#ff6b81] flex flex-col items-center justify-center text-white p-2 text-center">
+                          <GraduationCap className="w-8 h-8 mb-1 opacity-90" />
+                          <span className="text-[10px] font-bold uppercase leading-tight tracking-wider">
+                            {teacher.experience_years ? `${teacher.experience_years}+ Yrs Exp` : 'Expert'}
+                          </span>
                         </div>
                       )}
                     </div>

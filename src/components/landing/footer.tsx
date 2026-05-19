@@ -4,17 +4,20 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="gradient-hero text-white py-16">
+    <footer className="gradient-hero text-white py-10 sm:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* Brand */}
           <div>
             <div className="mb-4">
               <Image src="/images/vidyazo-logo.png" alt="Vidyazo Logo" width={64} height={64} className="rounded-full shadow-sm" priority />
               <h3 className="sr-only">Vidyazo</h3>
             </div>
-            <p className="text-white/50 mb-4">
+            <p className="text-white/50 mb-4 flex items-center gap-2">
               Online Tuition Platform
+              <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-[10px] font-bold text-white/80 tracking-wider uppercase">
+                Since 2024
+              </span>
             </p>
             <p className="text-white/40 text-sm">
               A New Way to Learn — personalized learning for every student.
@@ -108,7 +111,7 @@ export function Footer() {
             Made with <Heart className="w-4 h-4 text-[#e94560] fill-[#e94560]" /> for Indian students
           </p>
           <p className="text-white/30 text-xs mt-2">
-            © {new Date().getFullYear()} Vidyazo. All rights reserved.
+            © 2024–{new Date().getFullYear()} Vidyazo. All rights reserved.
           </p>
         </div>
       </div>

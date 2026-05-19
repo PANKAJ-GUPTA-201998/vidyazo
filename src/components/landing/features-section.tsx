@@ -86,7 +86,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Top Banner Image */}
-        <div className="relative w-full h-[300px] md:h-[400px] rounded-3xl overflow-hidden mb-16 shadow-2xl group">
+        <div className="relative w-full h-[200px] sm:h-[300px] md:h-[400px] rounded-2xl sm:rounded-3xl overflow-hidden mb-10 sm:mb-16 shadow-2xl group">
           <Image 
             src="/images/ai_brain.png" 
             alt="Smart Education" 
@@ -95,32 +95,32 @@ export function FeaturesSection() {
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e] to-transparent opacity-80" />
-          <div className="absolute bottom-8 left-8 right-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Smart Learning Engine</h3>
-            <p className="text-white/80 max-w-2xl">Our proprietary system tracks your learning patterns, identifies knowledge gaps, and dynamically adapts your coursework to ensure you master every concept faster than traditional methods.</p>
+          <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8">
+            <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Smart Learning Engine</h3>
+            <p className="text-white/80 max-w-2xl text-sm sm:text-base hidden sm:block">Our system tracks your learning patterns, identifies knowledge gaps, and dynamically adapts your coursework.</p>
           </div>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="group relative p-6 rounded-2xl border border-gray-100 bg-white hover:shadow-xl hover:shadow-gray-100/50 hover:-translate-y-1 transition-all duration-300"
+              className="group relative p-5 sm:p-6 rounded-2xl border border-gray-100 bg-white hover:shadow-xl hover:shadow-gray-100/50 hover:-translate-y-1 transition-all duration-300"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon */}
               <div
-                className={`w-14 h-14 rounded-xl ${feature.bgColor} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}
+                className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform duration-300`}
               >
-                <feature.icon className={`w-7 h-7 ${feature.iconColor}`} />
+                <feature.icon className={`w-6 h-6 sm:w-7 sm:h-7 ${feature.iconColor}`} />
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-semibold text-[#1a1a2e] mb-2">
+              <h3 className="text-base sm:text-xl font-semibold text-[#1a1a2e] mb-1.5 sm:mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-gray-500 leading-relaxed text-sm sm:text-base">
                 {feature.description}
               </p>
 

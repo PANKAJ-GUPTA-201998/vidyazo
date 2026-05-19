@@ -124,12 +124,12 @@ export function SubjectsSection() {
         </div>
 
         {/* Subject Selector Tabs */}
-        <div className="flex justify-center gap-3 sm:gap-4 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-10">
           {subjects.map((sub, idx) => (
             <button
               key={sub.name}
               onClick={() => setActiveIndex(idx)}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-base transition-all duration-300 cursor-pointer ${
                 idx === activeIndex
                   ? `bg-gradient-to-r ${sub.gradient} text-white shadow-lg scale-105`
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -262,8 +262,14 @@ export function SubjectsSection() {
 
                 {/* Boards */}
                 <div className="mt-8 p-4 bg-gray-50 rounded-2xl">
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Supported Boards</p>
-                  <p className="text-sm font-semibold text-gray-700">{subject.boards}</p>
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Supported Boards</p>
+                  <div className="flex flex-wrap gap-2">
+                    {subject.boards.split(' • ').map(board => (
+                      <span key={board} className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-600 shadow-sm">
+                        {board}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

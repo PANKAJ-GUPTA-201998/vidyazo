@@ -51,29 +51,29 @@ export function HowItWorks() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center gap-16">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           {/* Left Column - Steps */}
-          <div className="flex-1 space-y-12 w-full">
+          <div className="flex-1 space-y-8 sm:space-y-12 w-full">
             {steps.map((step, index) => (
-              <div key={step.number} className="relative flex gap-6 group">
+              <div key={step.number} className="relative flex gap-4 sm:gap-6 group">
                 <div className="flex flex-col items-center">
                   <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 relative z-10 transition-transform group-hover:scale-110 duration-300 shadow-xl"
+                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 relative z-10 transition-transform group-hover:scale-110 duration-300 shadow-xl"
                     style={{ backgroundColor: step.color }}
                   >
-                    <step.icon className="w-8 h-8 text-white" />
+                    <step.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
                   {index !== steps.length - 1 && (
                     <div className="w-1 h-full mt-4 rounded-full opacity-20" style={{ backgroundColor: step.color }} />
                   )}
                 </div>
-                <div className="pt-2">
-                  <h3 className="text-2xl font-bold text-[#1a1a2e] mb-3">
-                    <span className="text-sm font-black tracking-widest uppercase mr-3 opacity-50" style={{ color: step.color }}>Step {step.number}</span>
+                <div className="pt-1 sm:pt-2">
+                  <h3 className="text-lg sm:text-2xl font-bold text-[#1a1a2e] mb-2">
+                    <span className="text-xs font-black tracking-widest uppercase mr-2 opacity-50" style={{ color: step.color }}>Step {step.number}</span>
                     <br className="sm:hidden" />
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">{step.description}</p>
+                  <p className="text-gray-600 text-base sm:text-lg leading-relaxed">{step.description}</p>
                 </div>
               </div>
             ))}

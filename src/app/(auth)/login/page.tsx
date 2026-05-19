@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Loader2, Sparkles } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Loader2, Sparkles, Mail, Lock } from "lucide-react";
 import { toast } from "sonner";
 
 const GoogleIcon = () => (
@@ -29,7 +31,47 @@ const GoogleIcon = () => (
 );
 
 export default function LoginPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast.error("Please enter email and password");
+      return;
+    }
+    
+    setLoading(true);
+    const supabase = createClient();
+    
+    try {
+      if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+        if (error) throw error;
+        toast.success("Signup successful! You can now log in.");
+        setIsSignUp(false);
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (error) throw error;
+        toast.success("Login successful!");
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Authentication failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -74,19 +116,74 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="space-y-6 mt-10">
+          <div className="mt-8">
+            <form onSubmit={handleEmailAuth} className="space-y-4">
+              <div className="space-y-2">
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Input 
+                    type="email" 
+                    placeholder="Email address" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 h-12 rounded-xl border-gray-200" 
+                    required 
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Input 
+                    type="password" 
+                    placeholder="Password" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 h-12 rounded-xl border-gray-200" 
+                    required 
+                  />
+                </div>
+              </div>
+              <Button 
+                type="submit" 
+                disabled={loading}
+                className="w-full h-12 rounded-xl font-semibold gradient-accent text-white hover:opacity-90 transition-opacity"
+              >
+                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (isSignUp ? "Create Account" : "Log In")}
+              </Button>
+            </form>
+
+            <div className="mt-4 text-center">
+              <button 
+                type="button" 
+                onClick={() => setIsSignUp(!isSignUp)}
+                className="text-sm text-gray-500 hover:text-[#e94560] font-medium"
+              >
+                {isSignUp ? "Already have an account? Log In" : "Need an account? Sign Up"}
+              </button>
+            </div>
+
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              </div>
+            </div>
+
             <Button
               onClick={handleGoogleLogin}
               disabled={loading}
               variant="outline"
-              className="w-full h-14 rounded-2xl text-lg font-semibold border-2 border-gray-200 hover:bg-gray-50 hover:border-gray-300 text-gray-700 transition-all duration-300 cursor-pointer disabled:opacity-50 shadow-sm"
+              className="w-full h-12 rounded-xl font-semibold border border-gray-200 hover:bg-gray-50 text-gray-700 transition-all cursor-pointer"
             >
               {loading ? (
-                <Loader2 className="w-6 h-6 animate-spin" />
+                <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
                   <GoogleIcon />
-                  Continue with Google
+                  Google
                 </>
               )}
             </Button>

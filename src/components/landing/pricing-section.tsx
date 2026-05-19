@@ -12,10 +12,10 @@ const monthlyPlans = [
     period: "/month",
     popular: false,
     features: [
-      "3 classes/week",
-      "MCQ weekly test",
-      "Parent progress dashboard (Portal)",
-      "Monthly PTM",
+      { text: "3 classes/week", key: false },
+      { text: "MCQ weekly test", key: false },
+      { text: "Parent progress dashboard", key: false },
+      { text: "Monthly PTM", key: false },
     ],
     cta: "Join Batch",
   },
@@ -25,12 +25,12 @@ const monthlyPlans = [
     period: "/month",
     popular: true,
     features: [
-      "5 classes/week",
-      "Weekly test",
-      "WhatsApp doubt support",
-      "Parent portal details",
-      "Monthly PTM",
-      "1 personal session/month",
+      { text: "5 classes/week", key: false },
+      { text: "Weekly test + detailed report", key: false },
+      { text: "WhatsApp doubt support", key: false },
+      { text: "Parent portal details", key: false },
+      { text: "Monthly PTM", key: false },
+      { text: "1 personal session/month", key: true },
     ],
     cta: "Get Hybrid",
   },
@@ -40,12 +40,12 @@ const monthlyPlans = [
     period: "/month",
     popular: false,
     features: [
-      "5 classes/week",
-      "2x weekly test",
-      "WhatsApp doubt support",
-      "Parent portal details",
-      "Monthly PTM",
-      "Daily personal session",
+      { text: "5 classes/week", key: false },
+      { text: "2x weekly test", key: false },
+      { text: "WhatsApp doubt support", key: false },
+      { text: "Parent portal details", key: false },
+      { text: "Monthly PTM", key: false },
+      { text: "Daily personal session", key: true },
     ],
     cta: "Book 1-on-1",
   },
@@ -59,10 +59,10 @@ const annualPlans = [
     popular: false,
     saving: "789",
     features: [
-      "3 classes/week",
-      "MCQ weekly test",
-      "Parent progress dashboard (Portal)",
-      "Monthly PTM",
+      { text: "3 classes/week", key: false },
+      { text: "MCQ weekly test", key: false },
+      { text: "Parent progress dashboard", key: false },
+      { text: "Monthly PTM", key: false },
     ],
     cta: "Join Batch",
   },
@@ -74,12 +74,12 @@ const annualPlans = [
     saving: "1,489",
     badge: "Best Value",
     features: [
-      "5 classes/week",
-      "Weekly test",
-      "WhatsApp doubt support",
-      "Parent portal details",
-      "Monthly PTM",
-      "1 personal session/month",
+      { text: "5 classes/week", key: false },
+      { text: "Weekly test + detailed report", key: false },
+      { text: "WhatsApp doubt support", key: false },
+      { text: "Parent portal details", key: false },
+      { text: "Monthly PTM", key: false },
+      { text: "1 personal session/month", key: true },
     ],
     cta: "Get Hybrid",
   },
@@ -90,12 +90,12 @@ const annualPlans = [
     popular: false,
     saving: "2,989",
     features: [
-      "5 classes/week",
-      "2x weekly test",
-      "WhatsApp doubt support",
-      "Parent portal details",
-      "Monthly PTM",
-      "Daily personal session",
+      { text: "5 classes/week", key: false },
+      { text: "2x weekly test", key: false },
+      { text: "WhatsApp doubt support", key: false },
+      { text: "Parent portal details", key: false },
+      { text: "Monthly PTM", key: false },
+      { text: "Daily personal session", key: true },
     ],
     cta: "Book 1-on-1",
   },
@@ -218,20 +218,26 @@ export function PricingSection() {
                 )}
 
                 <ul className="space-y-3 mb-8 flex-1">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <div
-                        className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                          plan.popular
-                            ? "bg-[#e94560]/10 text-[#e94560]"
-                            : "bg-[#1a1a2e]/10 text-[#1a1a2e]"
-                        }`}
-                      >
-                        <Check className="w-3 h-3" />
-                      </div>
-                      <span className="text-gray-600">{feature}</span>
-                    </li>
-                  ))}
+                  {plan.features.map((feature) => {
+                    const isKey = typeof feature === 'object' && feature.key;
+                    const text = typeof feature === 'object' ? feature.text : feature;
+                    return (
+                      <li key={text} className="flex items-start gap-3">
+                        <div
+                          className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            plan.popular
+                              ? "bg-[#e94560]/10 text-[#e94560]"
+                              : "bg-[#1a1a2e]/10 text-[#1a1a2e]"
+                          }`}
+                        >
+                          <Check className="w-3 h-3" />
+                        </div>
+                        <span className={isKey ? "text-[#1a1a2e] font-bold" : "text-gray-600"}>
+                          {text}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="block">
@@ -258,7 +264,7 @@ export function PricingSection() {
           </div>
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <Users className="w-5 h-5 text-blue-500" />
-            <span className="font-medium">10,000+ Students</span>
+            <span className="font-medium">600+ Students</span>
           </div>
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <BadgeCheck className="w-5 h-5 text-purple-500" />
@@ -270,13 +276,15 @@ export function PricingSection() {
         <div className="mt-10 max-w-2xl mx-auto">
           <button
             onClick={() => setRefundOpen(!refundOpen)}
-            className="w-full flex items-center justify-between p-5 rounded-2xl border border-gray-100 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer"
+            className="w-full flex items-center justify-between p-5 rounded-2xl border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer group"
+            aria-expanded={refundOpen}
           >
-            <span className="font-semibold text-[#1a1a2e]">
-              📋 Refund Policy
+            <span className="font-semibold text-[#1a1a2e] flex items-center gap-2">
+              <Shield className="w-4 h-4 text-green-500" />
+              Refund &amp; Money-Back Policy
             </span>
             <ChevronDown
-              className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${
+              className={`w-5 h-5 text-gray-400 transition-transform duration-300 group-hover:text-gray-600 ${
                 refundOpen ? "rotate-180" : ""
               }`}
             />

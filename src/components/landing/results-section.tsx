@@ -5,7 +5,7 @@ import { TrendingUp, Quote, Award } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import type { StudentResult } from "@/types/database";
 
-const FALLBACK_RESULTS: Partial<StudentResult>[] = [
+const FALLBACK_RESULTS: Partial<StudentResult & { city: string }>[] = [
   {
     id: "fallback-1",
     student_name: "Rohit S.",
@@ -15,6 +15,7 @@ const FALLBACK_RESULTS: Partial<StudentResult>[] = [
     score_before: 47,
     score_after: 91,
     exam_year: 2025,
+    city: "Delhi",
     parent_quote:
       "Vidyazo ne mere bete ki life badal di. Maths mein 47% se 91% — kamaal ho gaya!",
     is_featured: true,
@@ -28,6 +29,7 @@ const FALLBACK_RESULTS: Partial<StudentResult>[] = [
     score_before: 55,
     score_after: 88,
     exam_year: 2025,
+    city: "Lucknow",
     parent_quote:
       "English mein confidence aa gaya hai. Teachers bahut supportive hain.",
     is_featured: true,
@@ -41,6 +43,7 @@ const FALLBACK_RESULTS: Partial<StudentResult>[] = [
     score_before: 62,
     score_after: 94,
     exam_year: 2025,
+    city: "Agra",
     parent_quote:
       "Science mein 94%! Vidyazo ke teachers ka concept-based approach kaafi achha hai.",
     is_featured: true,
@@ -48,7 +51,7 @@ const FALLBACK_RESULTS: Partial<StudentResult>[] = [
 ];
 
 export function ResultsSection() {
-  const [results, setResults] = useState<Partial<StudentResult>[]>([]);
+  const [results, setResults] = useState<Partial<StudentResult & { city?: string }>[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -121,6 +124,9 @@ export function ResultsSection() {
                     </h3>
                     <p className="text-xs text-gray-500">
                       Class {result.class_grade} • {result.board}
+                      {(result as any).city && (
+                        <span className="ml-1 text-gray-400">({(result as any).city})</span>
+                      )}
                     </p>
                   </div>
                   {result.subject && (

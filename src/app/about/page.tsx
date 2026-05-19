@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { label: "Active Students", value: "10,000+", icon: Users, color: "text-blue-500", bg: "bg-blue-50" },
+  { label: "Active Students", value: "600+", icon: Users, color: "text-blue-500", bg: "bg-blue-50" },
   { label: "Classes Conducted", value: "50,000+", icon: BookOpen, color: "text-green-500", bg: "bg-green-50" },
   { label: "Avg Score Improvement", value: "+15%", icon: TrendingUp, color: "text-orange-500", bg: "bg-orange-50" },
   { label: "Boards Covered", value: "6+", icon: GraduationCap, color: "text-purple-500", bg: "bg-purple-50" },
@@ -49,9 +49,9 @@ export default function AboutPage() {
             <span className="text-4xl">👨‍🏫</span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6">
-            Started by a Student,{" "}
+            Expert Guidance,{" "}
             <span className="bg-gradient-to-r from-[#e94560] to-[#ff6b81] bg-clip-text text-transparent">
-              Built for Students
+              Exceptional Results
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
@@ -115,7 +115,7 @@ export default function AboutPage() {
             Want to Know More?
           </h2>
           <p className="text-white/80 text-lg mb-8">
-            Chat directly with our founder on WhatsApp
+            Chat directly with our academic counselors on WhatsApp
           </p>
           <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
             <Button className="bg-white text-[#e94560] px-8 py-6 text-lg font-bold rounded-xl hover:bg-white/90 hover:scale-105 transition-all duration-300 shadow-lg cursor-pointer">

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ArrowRight, ChevronDown, BookOpen, Star, FileText, IndianRupee, Globe, Target } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, BookOpen, Star, FileText, IndianRupee, Globe, Target, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/language-context";
 
@@ -13,6 +13,7 @@ const EXPLORE_LINKS = [
   { label: "Reports", href: "/ai-reports", description: "Weekly progress for parents", icon: FileText },
   { label: "Pricing", href: "/pricing", description: "Affordable plans for all", icon: IndianRupee },
   { label: "Competitive Exams", href: "/competitive-exams", description: "JEE, NEET, CUET & more", icon: Target },
+  { label: "Higher Education", href: "/direct-admission", description: "B.Tech, MBBS, MBA & BBA consulting", icon: GraduationCap },
 ];
 
 export function Navbar({ forceSolid = false }: { forceSolid?: boolean }) {
@@ -123,19 +124,24 @@ export function Navbar({ forceSolid = false }: { forceSolid?: boolean }) {
               About
             </Link>
 
+            {/* Direct Admission — animated */}
             <Link
               href="/direct-admission"
-              className={`flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-[#e94560] ${
-                isScrolled ? "text-gray-600" : "text-white/80"
-              }`}
+              className="flex items-center gap-1.5 group"
             >
+              {/* Pulsing dot */}
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e94560] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e94560]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e94560] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e94560]" />
               </span>
-              Direct Admission
-              <span className="text-[10px] bg-[#e94560]/10 text-[#e94560] px-2 py-0.5 rounded-full font-bold animate-shake-sideways border border-[#e94560]/20 whitespace-nowrap">
-                B.Tech/MBBS/MBA/BBA & More
+              <span className={`text-sm font-semibold transition-colors group-hover:text-[#e94560] ${
+                isScrolled ? "text-gray-700" : "text-white"
+              }`}>
+                Admissions
+              </span>
+              {/* Animated badge */}
+              <span className="animate-pulse-badge inline-flex items-center gap-0.5 text-[9px] bg-[#e94560] text-white px-2 py-0.5 rounded-full font-bold whitespace-nowrap shadow-sm">
+                🎓 B.Tech • MBBS • MBA
               </span>
             </Link>
           </div>
@@ -220,13 +226,25 @@ export function Navbar({ forceSolid = false }: { forceSolid?: boolean }) {
           >
             About
           </Link>
+
+          {/* Direct Admission Mobile */}
           <Link
             href="/direct-admission"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center justify-between text-lg font-medium text-gray-800 hover:text-[#e94560] py-2 border-b border-gray-50"
+            className="flex items-center justify-between py-2 border-b border-gray-50 group"
           >
-            Direct Admission
-            <span className="text-[10px] bg-[#e94560]/10 text-[#e94560] px-2 py-1 rounded-full font-bold animate-shake-sideways border border-[#e94560]/20">B.Tech/MBBS/MBA &amp; More</span>
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e94560] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e94560]" />
+              </span>
+              <span className="text-lg font-semibold text-gray-800 group-hover:text-[#e94560]">
+                Admissions
+              </span>
+            </div>
+            <span className="animate-pulse-badge text-[9px] bg-[#e94560] text-white px-2.5 py-1 rounded-full font-bold">
+              🎓 B.Tech • MBBS • MBA
+            </span>
           </Link>
           <div className="flex flex-col gap-3 mt-4">
             <Link href="/parent/login" onClick={() => setIsMobileMenuOpen(false)}>

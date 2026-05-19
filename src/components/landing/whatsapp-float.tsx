@@ -13,7 +13,7 @@ export function WhatsAppFloat() {
         target="_blank"
         rel="noopener noreferrer"
         className="hidden md:flex fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] items-center justify-center shadow-lg shadow-[#25D366]/30 hover:shadow-[#25D366]/50 hover:scale-110 transition-all duration-300 animate-pulse-glow"
-        aria-label="Chat on WhatsApp"
+        aria-label="Talk to a Counselor"
       >
         <MessageCircle className="w-7 h-7 text-white fill-white" />
       </a>
@@ -27,7 +27,7 @@ export function WhatsAppFloat() {
           className="block w-full"
         >
           <Button className="w-full h-14 text-base font-bold gradient-accent text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-            Book Free Demo <ArrowRight className="w-5 h-5 ml-2" />
+            Talk to a Counselor <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </a>
       </div>

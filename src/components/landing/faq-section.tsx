@@ -5,39 +5,39 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    question: "Class timing kya hai?",
+    question: "What are the class timings?",
     answer:
-      "Batch classes evening 6-8 PM ke beech hoti hain, Monday se Friday. Exact timing batch ke hisaab se decide hota hai. 1-on-1 classes ka timing flexible hai — aapki convenience ke hisaab se schedule hoga.",
+      "Batch classes are held between 6-8 PM in the evening, from Monday to Friday. The exact timing is decided based on the batch. For 1-on-1 classes, the timings are flexible and will be scheduled according to your convenience.",
   },
   {
-    question: "Demo class free hai?",
+    question: "Is the demo class free?",
     answer:
-      "Haan! Pehli demo class bilkul free hai. WhatsApp pe message karo aur hum aapko schedule kar denge. Demo mein aapko actual class experience milega.",
+      "Yes! The first demo class is completely free. Send us a message on WhatsApp, and we will schedule it for you. You will get a real class experience during the demo.",
   },
   {
-    question: "Payment kaise karu?",
+    question: "How can I make the payment?",
     answer:
-      "Payment Razorpay ke through hota hai — UPI, debit card, net banking sab chalega. Dashboard pe jaake \"Pay\" button press karo. Cash ya direct UPI transfer bhi accept karte hain.",
+      "Payments are processed securely through Razorpay — UPI, debit cards, and net banking are all supported. Simply click the 'Pay' button on your dashboard. We also accept direct UPI transfers.",
   },
   {
-    question: "Recording milegi agar class miss ho?",
+    question: "Will I get recordings if I miss a class?",
     answer:
-      "Bilkul! Har class ki recording dashboard pe available hoti hai. Agar kisi din class miss ho gayi, toh recording dekh sakte ho. Recording 30 din tak available rehti hai.",
+      "Absolutely! The recording of every class is available on your dashboard. If you miss a class on any given day, you can watch the recording later. Recordings remain available for 30 days.",
   },
   {
-    question: "Kaunsa board support hai?",
+    question: "Which education boards are supported?",
     answer:
-      "Abhi CBSE, ICSE, UP Board, MP Board, Bihar Board, aur Maharashtra Board support karte hain. Syllabus har board ke hisaab se cover hota hai.",
+      "We currently support CBSE, ICSE, UP Board, MP Board, Bihar Board, and Maharashtra Board. The syllabus is fully aligned with the respective board's curriculum.",
   },
   {
-    question: "Refund policy kya hai?",
+    question: "What is the refund policy?",
     answer:
-      "Agar first week mein satisfy nahi hue, toh full refund mil jayega. Uske baad pro-rata refund policy apply hogi. Koi hidden charges nahi hain.",
+      "If you are not satisfied within the first week, you will receive a full refund. After that, a pro-rata refund policy applies. There are absolutely no hidden charges.",
   },
   {
-    question: "Parent ko updates kaise milenge?",
+    question: "How will parents receive updates?",
     answer:
-      "Har Monday ko weekly report WhatsApp pe aata hai — Hindi mein! Isme bacche ka score, weak topics, strong topics, aur improvement tips sab hota hai. Plus, magic link se dashboard bhi dekh sakte hain.",
+      "A weekly progress report is sent via WhatsApp every Monday! It includes the student's score, weak topics, strong topics, and improvement tips. Plus, parents can access the full dashboard anytime via a magic link.",
   },
 ];
 
