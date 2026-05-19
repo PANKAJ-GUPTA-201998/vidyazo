@@ -18,9 +18,9 @@ import { Loader2 } from "lucide-react";
 const navItems = [
   { href: "/dashboard", icon: Home, label: "Home" },
   { href: "/classes", icon: Video, label: "Classes" },
-  { href: "/dashboard", icon: ClipboardList, label: "Tests" },
+  { href: "/test", icon: ClipboardList, label: "Tests" },
   { href: "/reports", icon: BarChart3, label: "Reports" },
-  { href: "/dashboard", icon: User, label: "Profile" },
+  { href: "/profile", icon: User, label: "Profile" },
 ];
 
 export default function DashboardLayout({
