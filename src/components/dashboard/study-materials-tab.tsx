@@ -56,50 +56,59 @@ export function StudyMaterialsTab() {
   }, {} as Record<string, StudyMaterial[]>);
 
   return (
-    <div className="space-y-8 mt-6">
-      {Object.entries(grouped).map(([subject, mats]) => (
-        <div key={subject}>
-          <h3 className="text-lg font-bold text-[#1a1a2e] flex items-center gap-2 mb-4">
-            <BookOpen className="w-5 h-5 text-blue-500" />
-            {subject}
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="space-y-8 mt-6 animate-fade-in">
+      {Object.entries(grouped).map(([subject, mats], index) => (
+        <div key={subject} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-indigo-500 shadow-lg shadow-blue-500/20 flex items-center justify-center text-white">
+              <BookOpen className="w-5 h-5" />
+            </div>
+            <h3 className="text-xl font-bold text-[#1a1a2e]">
+              {subject}
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {mats.map((mat) => {
               const canAccess = mat.is_free || isActiveSubscriber;
               return (
                 <div
                   key={mat.id}
-                  className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col justify-between"
+                  className="relative group bg-white/60 backdrop-blur-md rounded-2xl border border-white/60 shadow-sm hover:shadow-xl transition-all duration-300 p-5 flex flex-col justify-between overflow-hidden"
                 >
-                  <div className="flex items-start gap-3 mb-4">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${canAccess ? 'bg-red-50 text-red-500' : 'bg-gray-100 text-gray-400'}`}>
-                      <FileText className="w-5 h-5" />
+                  {/* Subtle hover gradient background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="relative z-10 flex items-start gap-4 mb-6">
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm transition-transform group-hover:scale-105 duration-300 ${canAccess ? 'bg-gradient-to-br from-red-400 to-rose-500 text-white shadow-red-500/20' : 'bg-gray-100 text-gray-400 border border-gray-200'}`}>
+                      <FileText className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className={`font-semibold text-sm ${canAccess ? 'text-[#1a1a2e]' : 'text-gray-500'}`}>
+                      <h4 className={`font-bold text-base leading-tight mb-1.5 ${canAccess ? 'text-[#1a1a2e]' : 'text-gray-500'}`}>
                         {mat.title}
                       </h4>
                       {mat.topic && (
-                        <span className="inline-block mt-1 px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 text-[10px] font-medium">
+                        <span className={`inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${canAccess ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-gray-100 text-gray-400'}`}>
                           {mat.topic}
                         </span>
                       )}
                     </div>
                   </div>
 
-                  {canAccess ? (
-                    <a href={mat.file_url || "#"} target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline" size="sm" className="w-full text-xs font-semibold hover:bg-gray-50 cursor-pointer border-gray-200">
-                        <Download className="w-3.5 h-3.5 mr-1.5" />
-                        Download PDF
+                  <div className="relative z-10">
+                    {canAccess ? (
+                      <a href={mat.file_url || "#"} target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline" size="sm" className="w-full text-xs font-bold hover:bg-[#e94560] hover:text-white hover:border-[#e94560] cursor-pointer transition-all duration-300 rounded-xl py-5 shadow-sm group-hover:shadow-md">
+                          <Download className="w-4 h-4 mr-2" />
+                          Download PDF
+                        </Button>
+                      </a>
+                    ) : (
+                      <Button variant="secondary" size="sm" className="w-full text-xs font-bold bg-gray-100/80 text-gray-400 cursor-not-allowed rounded-xl py-5 border border-gray-200/50">
+                        <Lock className="w-4 h-4 mr-2" />
+                        Upgrade to Access
                       </Button>
-                    </a>
-                  ) : (
-                    <Button variant="secondary" size="sm" className="w-full text-xs font-semibold bg-gray-100 text-gray-500 cursor-not-allowed">
-                      <Lock className="w-3.5 h-3.5 mr-1.5" />
-                      Upgrade to Access
-                    </Button>
-                  )}
+                    )}
+                  </div>
                 </div>
               );
             })}
