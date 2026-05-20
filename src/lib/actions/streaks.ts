@@ -121,8 +121,9 @@ export async function getLeaderboard(batchId: string) {
   const results = [];
 
   for (const enrollment of enrollments) {
-    const studentId = enrollment.student_id;
-    const profile = enrollment.profile as { id: string; full_name: string } | null;
+    const studentId = enrollment.student_id as string;
+    const profileRaw = enrollment.profile as { id: string; full_name: string } | { id: string; full_name: string }[] | null;
+    const profile = Array.isArray(profileRaw) ? profileRaw[0] : profileRaw;
 
     // Get test submissions this week
     const { data: submissions } = await serviceClient

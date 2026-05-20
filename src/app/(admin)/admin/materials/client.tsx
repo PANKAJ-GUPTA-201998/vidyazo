@@ -85,12 +85,14 @@ export default function MaterialsClient({
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-semibold">Materials ({materials.length})</h2>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button className="gradient-accent text-white">
-              <Plus className="w-4 h-4 mr-2" />
-              Upload Material
-            </Button>
-          </DialogTrigger>
+          <DialogTrigger
+            render={
+              <Button className="gradient-accent text-white">
+                <Plus className="w-4 h-4 mr-2" />
+                Upload Material
+              </Button>
+            }
+          />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add Study Material</DialogTitle>
@@ -140,7 +142,7 @@ export default function MaterialsClient({
                   <label className="text-sm font-medium">Target Batch</label>
                   <Select
                     value={formData.batch_id}
-                    onValueChange={(v) => setFormData({ ...formData, batch_id: v })}
+                    onValueChange={(v) => setFormData({ ...formData, batch_id: v ?? "" })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select batch" />
@@ -159,7 +161,7 @@ export default function MaterialsClient({
                   <label className="text-sm font-medium">Target Class</label>
                   <Select
                     value={formData.class_grade}
-                    onValueChange={(v) => setFormData({ ...formData, class_grade: v })}
+                    onValueChange={(v) => setFormData({ ...formData, class_grade: v ?? "" })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select class" />
@@ -219,7 +221,7 @@ export default function MaterialsClient({
                 
                 <div className="flex flex-wrap gap-1.5 mt-2">
                   <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold">
-                    {mat.subject}
+                    {mat.subject ?? "—"}
                   </span>
                   {mat.topic && (
                     <span className="px-2 py-0.5 rounded bg-gray-100 text-gray-600 text-[10px] font-medium">
@@ -246,7 +248,7 @@ export default function MaterialsClient({
                     <><Lock className="w-3.5 h-3.5 text-amber-500" /> Paid</>
                   )}
                 </span>
-                <a href={mat.file_url} target="_blank" rel="noopener noreferrer">
+                <a href={mat.file_url ?? "#"} target="_blank" rel="noopener noreferrer">
                   <Button variant="ghost" size="sm" className="h-7 px-2 text-blue-600 hover:bg-blue-50">
                     <Download className="w-3.5 h-3.5 mr-1" />
                     PDF

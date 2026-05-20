@@ -3,9 +3,24 @@
 import { useCallback } from "react";
 import { toast } from "sonner";
 
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
+interface RazorpayInstance {
+  on(event: string, handler: (response: { error: unknown }) => void): void;
+  open(): void;
+}
+
+interface RazorpayConstructor {
+  new (options: Record<string, unknown>): RazorpayInstance;
+}
+
 declare global {
   interface Window {
-    Razorpay: unknown;
+    Razorpay: RazorpayConstructor;
   }
 }
 
@@ -64,7 +79,7 @@ export function useRazorpay() {
         theme: {
           color: "#e94560",
         },
-        handler: function (response: unknown) {
+        handler: function (response: RazorpayResponse) {
           toast.success("Payment successful! 🎉");
           onSuccess(response.razorpay_payment_id);
         },
@@ -77,7 +92,7 @@ export function useRazorpay() {
 
       try {
         const rzp = new window.Razorpay(rzpOptions);
-        rzp.on("payment.failed", (response: unknown) => {
+        rzp.on("payment.failed", (response: { error: unknown }) => {
           toast.error("Payment failed. Please try again.");
           onFailure?.(response.error);
         });

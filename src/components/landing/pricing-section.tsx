@@ -209,10 +209,10 @@ export function PricingSection() {
                 </div>
 
                 {/* Saving badge for annual */}
-                {"saving" in plan && plan.saving && (
+                {(plan as { saving?: string }).saving && (
                   <div className="mb-4">
                     <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-bold border border-green-200">
-                      💰 Save ₹{plan.saving}
+                      💰 Save ₹{(plan as { saving?: string }).saving}
                     </span>
                   </div>
                 )}

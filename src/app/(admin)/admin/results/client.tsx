@@ -66,12 +66,14 @@ export default function ResultsClient({
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-semibold">Success Stories ({results.length})</h2>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button className="gradient-accent text-white">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Result
-            </Button>
-          </DialogTrigger>
+          <DialogTrigger
+            render={
+              <Button className="gradient-accent text-white">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Result
+              </Button>
+            }
+          />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add Success Story</DialogTitle>
@@ -146,15 +148,15 @@ export default function ResultsClient({
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center overflow-hidden">
-                    {result.photo_url ? (
-                      <img src={result.photo_url} alt={result.student_name} className="w-full h-full object-cover" />
+                    {result.student_photo_url ? (
+                      <img src={result.student_photo_url} alt={result.student_name} className="w-full h-full object-cover" />
                     ) : (
                       <Award className="w-6 h-6 text-green-500" />
                     )}
                   </div>
                   <div>
                     <h3 className="font-bold text-[#1a1a2e]">{result.student_name}</h3>
-                    <p className="text-xs text-gray-500">{result.exam_name}</p>
+                    <p className="text-xs text-gray-500">{result.subject ?? "General"}</p>
                   </div>
                 </div>
                 <Button

@@ -15,10 +15,10 @@ export default async function ReportsPage() {
   // We can calculate overall trend by taking the latest report's score trend
   if (reports && reports.length > 0) {
     const latest = reports[0];
-    const scoreTrend = latest.content.score_trend;
+    const scoreTrend = latest.content.score_trend ?? "stable";
     overallTrend = {
       label: scoreTrend === "improving" ? "📈 Improving" : scoreTrend === "declining" ? "📉 Declining" : "➖ Stable",
-      icon: scoreTrend,
+      icon: scoreTrend as string,
       change: "Based on AI analysis",
     };
   }

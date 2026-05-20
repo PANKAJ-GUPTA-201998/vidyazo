@@ -251,7 +251,7 @@ export default function CompetitiveExamsPage() {
                 <Select
                   value={formData.exam_type}
                   onValueChange={(value) =>
-                    setFormData({ ...formData, exam_type: value })
+                    setFormData({ ...formData, exam_type: value ?? "" })
                   }
                 >
                   <SelectTrigger className="h-12 rounded-xl border-gray-200">

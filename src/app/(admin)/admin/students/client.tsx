@@ -99,7 +99,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
       setAddOpen(false);
       setFormData({ full_name: "", phone: "", class_grade: "", board: "", parent_phone: "" });
     } catch (error: unknown) {
-      toast.error(error.message || "Failed to add student");
+      toast.error(error instanceof Error ? error.message : "Failed to add student");
     } finally {
       setIsSubmitting(false);
     }
@@ -154,7 +154,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
                 </div>
-                <Select value={formData.class_grade} onValueChange={(v) => setFormData({ ...formData, class_grade: v })}>
+                <Select value={formData.class_grade} onValueChange={(v) => setFormData({ ...formData, class_grade: v ?? "" })}>
                   <SelectTrigger className="rounded-xl">
                     <SelectValue placeholder="Select Class" />
                   </SelectTrigger>
@@ -166,7 +166,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                     ))}
                   </SelectContent>
                 </Select>
-                <Select value={formData.board} onValueChange={(v) => setFormData({ ...formData, board: v })}>
+                <Select value={formData.board} onValueChange={(v) => setFormData({ ...formData, board: v ?? "" })}>
                   <SelectTrigger className="rounded-xl">
                     <SelectValue placeholder="Select Board" />
                   </SelectTrigger>

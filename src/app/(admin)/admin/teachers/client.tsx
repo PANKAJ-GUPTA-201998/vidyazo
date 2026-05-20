@@ -65,12 +65,14 @@ export default function TeachersClient({
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-semibold">Active Teachers ({teachers.length})</h2>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button className="gradient-accent text-white">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Teacher
-            </Button>
-          </DialogTrigger>
+          <DialogTrigger
+            render={
+              <Button className="gradient-accent text-white">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Teacher
+              </Button>
+            }
+          />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add New Teacher</DialogTitle>
@@ -133,18 +135,20 @@ export default function TeachersClient({
             <CardContent className="p-4 flex items-start gap-4">
               <div className="w-16 h-16 rounded-xl bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                 {teacher.photo_url ? (
-                  <img src={teacher.photo_url} alt={teacher.name} className="w-full h-full object-cover" />
+                  <img src={teacher.photo_url} alt={teacher.full_name} className="w-full h-full object-cover" />
                 ) : (
                   <GraduationCap className="w-8 h-8 text-gray-400" />
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-[#1a1a2e] truncate">{teacher.name}</h3>
-                <p className="text-sm text-[#e94560] font-medium">{teacher.subject}</p>
-                <p className="text-xs text-gray-500 mt-1">{teacher.experience}</p>
+                <h3 className="font-semibold text-[#1a1a2e] truncate">{teacher.full_name}</h3>
+                <p className="text-sm text-[#e94560] font-medium">{teacher.subjects?.join(", ")}</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {teacher.experience_years ? `${teacher.experience_years}+ Years Experience` : ""}
+                </p>
                 
                 <div className="flex gap-2 mt-3">
-                  {teacher.video_url && (
+                  {teacher.intro_video_url && (
                     <Button variant="outline" size="icon" className="h-8 w-8 text-blue-500" title="Has Demo Video">
                       <Video className="w-4 h-4" />
                     </Button>

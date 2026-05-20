@@ -78,7 +78,7 @@ export default function BatchesClient({ initialBatches }: { initialBatches: any[
         price_monthly: "899",
       });
     } catch (error: unknown) {
-      toast.error(error.message || "Failed to create batch");
+      toast.error(error instanceof Error ? error.message : "Failed to create batch");
     } finally {
       setIsSubmitting(false);
     }
@@ -121,7 +121,7 @@ export default function BatchesClient({ initialBatches }: { initialBatches: any[
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
               />
               <div className="grid grid-cols-2 gap-3">
-                <Select value={formData.class_grade} onValueChange={(v) => setFormData({ ...formData, class_grade: v })}>
+                <Select value={formData.class_grade} onValueChange={(v) => setFormData({ ...formData, class_grade: v ?? "" })}>
                   <SelectTrigger className="rounded-xl">
                     <SelectValue placeholder="Class" />
                   </SelectTrigger>
@@ -133,7 +133,7 @@ export default function BatchesClient({ initialBatches }: { initialBatches: any[
                     ))}
                   </SelectContent>
                 </Select>
-                <Select value={formData.board} onValueChange={(v) => setFormData({ ...formData, board: v })}>
+                <Select value={formData.board} onValueChange={(v) => setFormData({ ...formData, board: v ?? "" })}>
                   <SelectTrigger className="rounded-xl">
                     <SelectValue placeholder="Board" />
                   </SelectTrigger>
@@ -213,7 +213,7 @@ export default function BatchesClient({ initialBatches }: { initialBatches: any[
                 <div className="flex items-center gap-1.5 mb-4">
                   <Calendar className="w-4 h-4 text-gray-400" />
                   <div className="flex gap-1.5 flex-wrap">
-                    {Object.entries(batch.schedule).map(([day, time]) => (
+                    {Object.entries(batch.schedule as Record<string, string>).map(([day, time]) => (
                       <span
                         key={day}
                         className="text-xs px-2 py-0.5 rounded-md bg-blue-50 text-blue-700"

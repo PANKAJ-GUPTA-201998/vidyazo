@@ -33,7 +33,7 @@ export default function TestsClient({ initialTests }: { initialTests: TestFormat
     } catch (error: unknown) {
       // Revert on error
       setTests(tests);
-      toast.error(error.message || "Failed to toggle test status");
+      toast.error(error instanceof Error ? error.message : "Failed to toggle test status");
     }
   };
   return (

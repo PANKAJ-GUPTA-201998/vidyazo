@@ -4,17 +4,7 @@ import { Award, BookOpen } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-type AIReport = {
-  id: string;
-  week_start: string;
-  content: {
-    effort_rating: number;
-    summary_english: string;
-    summary_hindi: string;
-    weak_topics: string[];
-    strong_topics: string[];
-  };
-};
+import { AIReport } from "@/types/database";
 
 type OverallTrend = {
   label: string;

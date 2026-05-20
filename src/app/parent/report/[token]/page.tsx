@@ -3,8 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { getLatestReportByToken } from "@/lib/actions/ai";
 
-export default async function ParentReportPage({ params }: { params: { token: string } }) {
-  const dbReport = await getLatestReportByToken(params.token);
+export default async function ParentReportPage({ params }: { params: Promise<{ token: string }> }) {
+  const { token } = await params;
+  const dbReport = await getLatestReportByToken(token);
 
   if (!dbReport) {
     return (
@@ -100,7 +101,7 @@ export default async function ParentReportPage({ params }: { params: { token: st
                 Topic Performance
               </h4>
               <div className="space-y-3">
-                {report.topics.map((topic) => (
+                {report.topics.map((topic: any) => (
                   <div key={topic.name}>
                     <div className="flex justify-between text-sm mb-1.5">
                       <span className="text-gray-700 font-medium">
@@ -131,7 +132,7 @@ export default async function ParentReportPage({ params }: { params: { token: st
                   </span>
                 </div>
                 <div className="space-y-1">
-                  {report.weak_topics.map((t) => (
+                  {report.weak_topics.map((t: string) => (
                     <span
                       key={t}
                       className="inline-block px-2 py-0.5 rounded-md bg-red-100 text-red-700 text-xs font-medium mr-1"
@@ -149,7 +150,7 @@ export default async function ParentReportPage({ params }: { params: { token: st
                   </span>
                 </div>
                 <div className="space-y-1">
-                  {report.strong_topics.map((t) => (
+                  {report.strong_topics.map((t: string) => (
                     <span
                       key={t}
                       className="inline-block px-2 py-0.5 rounded-md bg-green-100 text-green-700 text-xs font-medium mr-1"

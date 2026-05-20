@@ -69,7 +69,7 @@ export async function createStudent(formData: {
 
 export async function updateStudent(
   id: string,
-  updates: Partial<Pick<Profile, "full_name" | "class_grade" | "board" | "parent_phone" | "is_active">>
+  updates: Partial<Pick<Profile, "full_name" | "class_grade" | "board" | "parent_phone" | "status">>
 ) {
   const supabase = await createClient();
   const { error } = await supabase

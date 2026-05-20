@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { FileText, Download, Lock, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getStudentMaterials } from "@/lib/actions/materials";
