@@ -64,47 +64,61 @@ export function LeaderboardCard({ batchId }: { batchId: string | null }) {
   const userInTop5 = top5.some((e) => e.studentId === profile?.id);
 
   return (
-    <div className="bg-white rounded-[24px] border border-gray-100/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.03)] p-6 sm:p-8 mt-2">
-      <h3 className="text-[15px] font-bold text-[#111] mb-6">Batch Top 5</h3>
+    <div className="group bg-white/80 backdrop-blur-md rounded-[32px] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-100 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+      
+      <div className="flex items-center justify-between mb-8 relative z-10">
+        <h3 className="text-[18px] font-extrabold text-gray-900 tracking-tight flex items-center gap-2">
+          Batch Top 5
+        </h3>
+        <span className="flex h-3 w-3 relative">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+        </span>
+      </div>
 
       {loading ? (
-        <div className="space-y-4">
+        <div className="space-y-4 relative z-10">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-10 bg-gray-100/50 rounded-xl animate-pulse" />
+            <div key={i} className="h-12 bg-slate-100/50 rounded-2xl animate-pulse" />
           ))}
         </div>
       ) : entries.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-8 text-center bg-gray-50/50 rounded-2xl border border-dashed border-gray-200">
-          <p className="text-[13px] font-medium text-gray-500">
-            No data yet.
+        <div className="flex flex-col items-center justify-center py-10 text-center bg-slate-50/50 rounded-[24px] border border-dashed border-slate-200 relative z-10">
+          <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm mb-3">
+            <Trophy className="w-5 h-5 text-slate-300" />
+          </div>
+          <p className="text-[14px] font-medium text-slate-500">
+            No data yet.<br/>Take a test to appear here!
           </p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3 relative z-10">
           {/* Top 5 */}
-          {top5.map((entry) => {
+          {top5.map((entry, index) => {
             const isMe = entry.studentId === profile?.id;
             return (
               <div
                 key={entry.studentId}
-                className={`flex items-center justify-between text-[13px] ${
+                className={`flex items-center justify-between text-[14px] p-3 rounded-[16px] transition-all duration-300 hover:scale-[1.02] group/row ${
                   isMe
-                    ? "bg-[#fff0f3] -mx-4 px-4 py-2 rounded-xl"
-                    : ""
+                    ? "bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-100/50 shadow-sm"
+                    : "hover:bg-slate-50 hover:shadow-sm"
                 }`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center gap-4">
-                  <span className={`w-4 text-center font-semibold ${isMe ? 'text-[#ff4d6d]' : 'text-gray-400'}`}>
+                  <span className={`flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-bold ${isMe ? 'bg-rose-500 text-white shadow-[0_4px_10px_rgba(244,63,94,0.3)]' : 'bg-slate-100 text-slate-500 group-hover/row:bg-slate-200 transition-colors'}`}>
                     {entry.rank}
                   </span>
-                  <span className={`font-medium ${isMe ? 'text-[#111]' : 'text-gray-600'} flex items-center gap-2`}>
-                    {entry.firstName} {isMe && "(You)"}
-                    {entry.rank <= 3 && rankIcons[entry.rank]}
+                  <span className={`font-bold ${isMe ? 'text-gray-900' : 'text-gray-700'} flex items-center gap-2 group-hover/row:text-indigo-600 transition-colors`}>
+                    {entry.firstName} {isMe && <span className="text-[10px] uppercase tracking-wider bg-rose-100 text-rose-600 px-1.5 py-0.5 rounded-full ml-1">You</span>}
+                    {entry.rank <= 3 && <span className="drop-shadow-sm transition-transform group-hover/row:scale-125 group-hover/row:rotate-12">{rankIcons[entry.rank]}</span>}
                   </span>
                 </div>
                 <div className="flex items-center gap-6">
-                  <span className="font-bold text-[#111]">{entry.testAvg}%</span>
-                  <span className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">{entry.attendancePct}% ATT</span>
+                  <span className="font-black text-gray-900 bg-white/50 px-2 py-1 rounded-lg shadow-sm border border-white/80">{entry.testAvg}%</span>
+                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{entry.attendancePct}% ATT</span>
                 </div>
               </div>
             );
@@ -112,23 +126,22 @@ export function LeaderboardCard({ batchId }: { batchId: string | null }) {
 
           {/* Show user's rank if not in top 5 */}
           {!userInTop5 && userEntry && (
-            <>
-              <div className="text-center text-gray-300 text-xs py-2">· · ·</div>
-              <div className="flex items-center justify-between text-[13px] bg-[#fff0f3] -mx-4 px-4 py-2 rounded-xl">
+            <div className="mt-4 pt-4 border-t border-slate-100">
+              <div className="flex items-center justify-between text-[14px] p-3 rounded-[16px] transition-all duration-300 hover:scale-[1.02] bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-100/50 shadow-sm">
                 <div className="flex items-center gap-4">
-                  <span className="w-4 text-center font-semibold text-[#ff4d6d]">
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-bold bg-rose-500 text-white shadow-[0_4px_10px_rgba(244,63,94,0.3)]">
                     {userEntry.rank}
                   </span>
-                  <span className="font-medium text-[#111] flex items-center gap-2">
-                    {userEntry.firstName} (You)
+                  <span className="font-bold text-gray-900 flex items-center gap-2">
+                    {userEntry.firstName} <span className="text-[10px] uppercase tracking-wider bg-rose-100 text-rose-600 px-1.5 py-0.5 rounded-full ml-1">You</span>
                   </span>
                 </div>
                 <div className="flex items-center gap-6">
-                  <span className="font-bold text-[#111]">{userEntry.testAvg}%</span>
-                  <span className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">{userEntry.attendancePct}% ATT</span>
+                  <span className="font-black text-gray-900 bg-white/50 px-2 py-1 rounded-lg shadow-sm border border-white/80">{userEntry.testAvg}%</span>
+                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{userEntry.attendancePct}% ATT</span>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       )}
