@@ -56,57 +56,60 @@ export function StudyMaterialsTab() {
   }, {} as Record<string, StudyMaterial[]>);
 
   return (
-    <div className="space-y-8 mt-6 animate-fade-in">
+    <div className="space-y-10 mt-2 animate-fade-in">
+      <div className="flex items-center justify-between mb-8">
+        <h3 className="text-[17px] font-bold text-[#111]">Recent Study Materials</h3>
+        <Link href="#" className="text-[12px] font-medium text-[#ff4d6d] hover:underline flex items-center gap-1">
+          View Library <span className="text-[14px]">→</span>
+        </Link>
+      </div>
+
       {Object.entries(grouped).map(([subject, mats], index) => (
         <div key={subject} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-indigo-500 shadow-lg shadow-blue-500/20 flex items-center justify-center text-white">
-              <BookOpen className="w-5 h-5" />
-            </div>
-            <h3 className="text-xl font-bold text-[#1a1a2e]">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-2 mb-4">
+            <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
               {subject}
-            </h3>
+            </h4>
+            <span className="text-[10px] font-medium text-gray-300">
+              {mats.length} files
+            </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {mats.map((mat) => {
               const canAccess = mat.is_free || isActiveSubscriber;
               return (
                 <div
                   key={mat.id}
-                  className="relative group bg-white/60 backdrop-blur-md rounded-2xl border border-white/60 shadow-sm hover:shadow-xl transition-all duration-300 p-5 flex flex-col justify-between overflow-hidden"
+                  className="bg-white rounded-[20px] border border-gray-100/80 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.03)] p-5 flex flex-col justify-between transition-all hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.06)]"
                 >
-                  {/* Subtle hover gradient background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <div className="relative z-10 flex items-start gap-4 mb-6">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm transition-transform group-hover:scale-105 duration-300 ${canAccess ? 'bg-gradient-to-br from-red-400 to-rose-500 text-white shadow-red-500/20' : 'bg-gray-100 text-gray-400 border border-gray-200'}`}>
-                      <FileText className="w-6 h-6" />
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-10 h-10 rounded-[12px] bg-[#fff0f3] flex items-center justify-center flex-shrink-0">
+                      <FileText className="w-4 h-4 text-[#ff4d6d]" />
                     </div>
                     <div>
-                      <h4 className={`font-bold text-base leading-tight mb-1.5 ${canAccess ? 'text-[#1a1a2e]' : 'text-gray-500'}`}>
-                        {mat.title}
-                      </h4>
                       {mat.topic && (
-                        <span className={`inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${canAccess ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-gray-100 text-gray-400'}`}>
+                        <span className="inline-block px-2 py-0.5 rounded-[4px] bg-gray-100 text-[9px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
                           {mat.topic}
                         </span>
                       )}
+                      <h5 className="font-semibold text-[13px] text-[#111] leading-snug">
+                        {mat.title}
+                      </h5>
                     </div>
                   </div>
 
-                  <div className="relative z-10">
+                  <div className="pl-14">
                     {canAccess ? (
-                      <a href={mat.file_url || "#"} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline" size="sm" className="w-full text-xs font-bold hover:bg-[#e94560] hover:text-white hover:border-[#e94560] cursor-pointer transition-all duration-300 rounded-xl py-5 shadow-sm group-hover:shadow-md">
-                          <Download className="w-4 h-4 mr-2" />
-                          Download PDF
-                        </Button>
+                      <a href={mat.file_url || "#"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#112a46] hover:text-blue-600 transition-colors">
+                        <Download className="w-3 h-3" />
+                        Download PDF
                       </a>
                     ) : (
-                      <Button variant="secondary" size="sm" className="w-full text-xs font-bold bg-gray-100/80 text-gray-400 cursor-not-allowed rounded-xl py-5 border border-gray-200/50">
-                        <Lock className="w-4 h-4 mr-2" />
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-gray-400">
+                        <Lock className="w-3 h-3" />
                         Upgrade to Access
-                      </Button>
+                      </span>
                     )}
                   </div>
                 </div>

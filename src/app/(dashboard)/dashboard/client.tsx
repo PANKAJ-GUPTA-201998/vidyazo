@@ -51,202 +51,138 @@ export default function DashboardClient({
   enrollments: Enrollment[];
 }) {
   const { profile } = useUser();
-  const today = new Date();
+  
+  // Calculate improvement
+  let improvement = 0;
+  if (progressData.length >= 2) {
+    improvement = progressData[progressData.length - 1] - progressData[progressData.length - 2];
+  }
 
   return (
-    <div className="space-y-8 pb-20 md:pb-6 animate-fade-in">
-      {/* Greeting Hero */}
-      <div className="relative rounded-3xl overflow-hidden glass border border-white/40 shadow-xl shadow-[#e94560]/10 p-6 sm:p-8">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#e94560]/20 to-[#0f3460]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-        <div className="relative z-10 flex items-center justify-between">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1a1a2e] tracking-tight">
-              Hi, {profile?.full_name?.split(" ")[0] || "Student"}! <span className="inline-block animate-wave">👋</span>
-            </h2>
-            <p className="text-gray-500 font-medium mt-2 flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#e94560]" />
-              {format(today, "EEEE, d MMMM yyyy")}
-            </p>
-          </div>
-          <div className="hidden sm:flex items-center justify-center w-16 h-16 rounded-2xl bg-white/50 border border-white backdrop-blur-md shadow-sm">
-            <span className="text-3xl font-bold text-[#e94560]">{format(today, "d")}</span>
-          </div>
-        </div>
+    <div className="space-y-8 pb-20 md:pb-6 animate-fade-in max-w-4xl mx-auto pt-6">
+      
+      {/* Background ambient gradient */}
+      <div className="fixed top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#fff0f3]/60 via-[#f8f9fa]/40 to-transparent -z-10 pointer-events-none" />
+
+      {/* Greeting Header */}
+      <div className="mb-10">
+        <h1 className="text-[2.5rem] font-bold text-[#111] tracking-tight leading-tight mb-2">
+          Welcome back, {profile?.full_name?.split(" ")[0] || "Student"}
+        </h1>
+        <p className="text-gray-500 text-[15px]">
+          You have {activeTest && enrollments.length > 0 ? "two" : activeTest || enrollments.length > 0 ? "one" : "no"} priority tasks remaining for today. Your performance has been exceptional this week.
+        </p>
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full max-w-sm grid-cols-2 mb-8 bg-white/50 backdrop-blur-md border border-white/60 p-1.5 rounded-2xl shadow-sm">
-          <TabsTrigger value="overview" className="rounded-xl font-semibold data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-[#e94560] transition-all">Overview</TabsTrigger>
-          <TabsTrigger value="materials" className="rounded-xl font-semibold data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-[#e94560] transition-all">Study Materials</TabsTrigger>
-        </TabsList>
+        {/* We keep the tabs invisible here because the mockup moves them to the top bar, 
+            but we need the functionality. We'll style it to be very subtle or hidden if needed.
+            Actually, the mockup shows them at the top. We will render them as a soft pill. */}
+        <div className="flex justify-center -mt-24 mb-16 relative z-50">
+           {/* In a real integration, this would be in the header. We'll position it nicely. */}
+           <TabsList className="bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-full p-1 h-12">
+             <TabsTrigger value="overview" className="rounded-full px-6 text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-black text-gray-500">Overview</TabsTrigger>
+             <TabsTrigger value="materials" className="rounded-full px-6 text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-black text-gray-500">Study Materials</TabsTrigger>
+           </TabsList>
+        </div>
 
-        <TabsContent value="overview" className="space-y-8">
+        <TabsContent value="overview" className="space-y-6">
 
-          {/* Top Actions: Class & Test */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-            {/* Today's Class Card */}
-            {enrollments.length > 0 ? (
-              <Card className="relative border-0 shadow-xl shadow-blue-500/20 bg-gradient-to-br from-[#0f3460] to-[#1a1a2e] text-white rounded-3xl overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/30 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-                <CardContent className="p-6 sm:p-8 relative z-10 h-full flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="px-3 py-1 bg-blue-500/20 text-blue-200 text-xs font-bold uppercase tracking-wider rounded-full border border-blue-400/20">
-                        Upcoming Class
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-1">{enrollments[0]?.batch?.subject || "Subject"}</h3>
-                    <p className="text-blue-200 text-sm font-medium">
-                      {enrollments[0]?.batch?.name || "Batch Name"}
-                    </p>
+          {/* Priority Cards */}
+          <div className="flex flex-col gap-5">
+            {/* Upcoming Class Card */}
+            {enrollments.length > 0 && (
+              <div className="bg-white rounded-[24px] border border-gray-100/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 transition-all hover:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)]">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-100 rounded-full mb-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                    <span className="text-[11px] font-semibold text-slate-600 uppercase tracking-wide">Upcoming Class</span>
                   </div>
-                  <div className="mt-8 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-blue-100/70">
-                      <Video className="w-4 h-4" />
-                      <span>Ready to learn?</span>
-                    </div>
-                    <Link href="/classes">
-                      <Button className="bg-white text-[#0f3460] hover:bg-blue-50 rounded-xl font-bold px-6 shadow-lg shadow-white/10 transition-all hover:scale-105 cursor-pointer">
-                        Join Class
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            ) : (
-              <Card className="border border-dashed border-gray-200 shadow-none bg-gray-50/50 rounded-3xl h-full flex items-center justify-center min-h-[200px]">
-                <CardContent className="p-6 text-center text-gray-500">
-                  <Video className="w-8 h-8 mx-auto mb-3 text-gray-300" />
-                  <p className="font-medium">No upcoming classes</p>
-                </CardContent>
-              </Card>
+                  <h3 className="text-[22px] font-bold text-[#111] mb-1.5">{enrollments[0]?.batch?.subject || "Subject"}</h3>
+                  <p className="text-[14px] text-gray-500">
+                    {enrollments[0]?.batch?.name || "Batch Name"} • Starts soon
+                  </p>
+                </div>
+                <Link href="/classes">
+                  <Button className="bg-[#ff4d6d] hover:bg-[#ff3355] text-white rounded-full px-8 py-6 text-[15px] font-semibold shadow-[0_4px_14px_rgba(255,77,109,0.3)] transition-all hover:scale-105 border-0">
+                    Join Class
+                  </Button>
+                </Link>
+              </div>
             )}
 
-            {/* This Week's Test */}
-            {activeTest ? (
-              <Card className="relative border-0 shadow-xl shadow-[#e94560]/20 gradient-accent text-white rounded-3xl overflow-hidden group">
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-                <CardContent className="p-6 sm:p-8 relative z-10 h-full flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="px-3 py-1 bg-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-full border border-white/20 animate-pulse">
-                        Action Required
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-1 leading-tight">{activeTest.title}</h3>
-                    <p className="text-white/80 text-sm font-medium flex items-center gap-2">
-                      <ClipboardCheck className="w-4 h-4" />
-                      {activeTest.questions?.length || 0} Questions • {activeTest.duration_minutes || 30} Mins
-                    </p>
+            {/* Pending Test Card */}
+            {activeTest && (
+              <div className="bg-white rounded-[24px] border border-gray-100/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 transition-all hover:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)]">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 border border-red-100 rounded-full mb-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d]" />
+                    <span className="text-[11px] font-semibold text-red-500 uppercase tracking-wide">Action Required</span>
                   </div>
-                  <div className="mt-8 flex items-center justify-end">
-                    <Link href={`/test/${activeTest.id}`}>
-                      <Button className="bg-white text-[#e94560] hover:bg-rose-50 rounded-xl font-bold px-6 shadow-lg shadow-white/10 transition-all hover:scale-105 cursor-pointer">
-                        Start Test Now
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            ) : (
-              <Card className="border border-gray-100 shadow-sm bg-white rounded-3xl h-full flex items-center justify-center min-h-[200px]">
-                <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                  <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-4">
-                    <span className="text-3xl">🎉</span>
-                  </div>
-                  <h3 className="font-bold text-gray-800 text-lg">You're all caught up!</h3>
-                  <p className="text-sm text-gray-500 font-medium">No pending tests for this week.</p>
-                </CardContent>
-              </Card>
+                  <h3 className="text-[22px] font-bold text-[#111] mb-1.5">{activeTest.title}</h3>
+                  <p className="text-[14px] text-gray-500">
+                    {activeTest.questions?.length || 0} Questions • {activeTest.duration_minutes || 30} Minutes
+                  </p>
+                </div>
+                <Link href={`/test/${activeTest.id}`}>
+                  <Button className="bg-[#111] hover:bg-black text-white rounded-full px-8 py-6 text-[15px] font-semibold shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition-all hover:scale-105 border-0">
+                    Start Test Now
+                  </Button>
+                </Link>
+              </div>
             )}
           </div>
 
           {/* Quick Stats Grid */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-6">
-            <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-3xl bg-white/50 backdrop-blur-sm">
-              <CardContent className="p-5 sm:p-6 text-center flex flex-col items-center justify-center">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-3 shadow-lg shadow-green-500/30">
-                  <BookOpen className="w-6 h-6 text-white" />
-                </div>
-                <p className="text-3xl font-black text-[#1a1a2e]">18</p>
-                <p className="text-xs sm:text-sm font-medium text-gray-500 mt-1 uppercase tracking-wider">Classes</p>
-              </CardContent>
-            </Card>
-            <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-3xl bg-white/50 backdrop-blur-sm">
-              <CardContent className="p-5 sm:p-6 text-center flex flex-col items-center justify-center">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-3 shadow-lg shadow-purple-500/30">
-                  <ClipboardCheck className="w-6 h-6 text-white" />
-                </div>
-                <p className="text-3xl font-black text-[#1a1a2e]">{testSubmissionsCount}</p>
-                <p className="text-xs sm:text-sm font-medium text-gray-500 mt-1 uppercase tracking-wider">Tests Taken</p>
-              </CardContent>
-            </Card>
-            <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-3xl bg-white/50 backdrop-blur-sm">
-              <CardContent className="p-5 sm:p-6 text-center flex flex-col items-center justify-center">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mb-3 shadow-lg shadow-orange-500/30">
-                  <Flame className="w-6 h-6 text-white" />
-                </div>
-                <p className="text-3xl font-black text-[#1a1a2e]">3</p>
-                <p className="text-xs sm:text-sm font-medium text-gray-500 mt-1 uppercase tracking-wider">Week Streak</p>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-3 gap-4 sm:gap-5 mt-2">
+            <div className="bg-white rounded-[24px] border border-gray-100/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.03)] p-6 flex flex-col justify-center">
+              <p className="text-[10px] sm:text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Total Classes</p>
+              <p className="text-3xl sm:text-[34px] font-bold text-[#111] leading-none">18</p>
+            </div>
+            <div className="bg-white rounded-[24px] border border-gray-100/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.03)] p-6 flex flex-col justify-center">
+              <p className="text-[10px] sm:text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Tests Taken</p>
+              <p className="text-3xl sm:text-[34px] font-bold text-[#111] leading-none">{testSubmissionsCount.toString().padStart(2, '0')}</p>
+            </div>
+            <div className="bg-white rounded-[24px] border border-gray-100/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.03)] p-6 flex flex-col justify-center">
+              <p className="text-[10px] sm:text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Weekly Streak</p>
+              <p className="text-3xl sm:text-[34px] font-bold text-[#111] leading-none">03</p>
+            </div>
           </div>
 
-          {/* Analytics Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Progress Chart */}
-            <Card className="lg:col-span-8 border border-white/60 shadow-lg shadow-gray-200/50 rounded-3xl bg-white/80 backdrop-blur-xl">
-              <CardHeader className="pb-2 border-b border-gray-100/50 px-6 sm:px-8 pt-6 sm:pt-8">
-                <CardTitle className="text-lg font-bold text-[#1a1a2e] flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 bg-green-100 rounded-xl">
-                      <TrendingUp className="w-5 h-5 text-green-600" />
-                    </div>
-                    Performance Trend
+          {/* Performance Trend */}
+          <div className="bg-white rounded-[24px] border border-gray-100/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.03)] p-6 sm:p-8 mt-2">
+            <h3 className="text-[15px] font-bold text-[#111] mb-8">Performance Trend</h3>
+            
+            <div className="flex items-center justify-between gap-2 sm:gap-4 mb-8">
+              {[0, 1, 2, 3].map((i) => {
+                const isLast = i === 3;
+                const score = progressData[i] || 0;
+                // Determine width based on score, but in mockup they are horizontal bars
+                // The mockup shows them all the same width, just different colors.
+                return (
+                  <div key={i} className="flex-1 flex flex-col items-center gap-3">
+                    <div className={`w-full h-2.5 rounded-full ${isLast ? 'bg-[#112a46]' : 'bg-slate-100'}`} />
+                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">WK {i + 1}</span>
                   </div>
-                  <span className="text-sm font-semibold text-[#e94560] bg-rose-50 px-3 py-1 rounded-full">
-                    Last 4 Tests
-                  </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 sm:p-8 pt-8">
-                <div className="flex items-end justify-around gap-2 sm:gap-6 h-40">
-                  {progressData.map((score, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-3 group">
-                      <span className="text-sm font-bold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity -translate-y-2">
-                        {score}%
-                      </span>
-                      <div className="w-full max-w-[60px] bg-gray-100 rounded-t-2xl rounded-b-md overflow-hidden relative shadow-inner h-[120px]">
-                        <div
-                          className="absolute bottom-0 w-full rounded-t-xl rounded-b-md transition-all duration-1000 ease-out"
-                          style={{
-                            height: `${score}%`,
-                            background: `linear-gradient(to top, ${i === progressData.length - 1 ? '#e94560, #ff6b81' : '#cbd5e1, #94a3b8'})`,
-                          }}
-                        >
-                          <div className="absolute inset-0 bg-white/20 w-full h-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', mixBlendMode: 'overlay' }} />
-                        </div>
-                      </div>
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">W{i + 1}</span>
-                    </div>
-                  ))}
-                </div>
-                {progressData.length > 1 && progressData[progressData.length - 1] > progressData[progressData.length - 2] && (
-                  <div className="mt-6 p-4 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center gap-2 animate-fade-in">
-                    <span className="text-xl">🚀</span>
-                    <p className="text-sm text-green-700 font-semibold">
-                      Excellent work! Your score improved by {progressData[progressData.length - 1] - progressData[progressData.length - 2]}% this week.
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Leaderboard/Streak Compact */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
-              <StreakCard />
-              <LeaderboardCard batchId={enrollments[0]?.batch?.id || null} />
+                );
+              })}
             </div>
+            
+            {improvement > 0 ? (
+              <div className="bg-[#eefcf2] text-[#29904d] px-5 py-3.5 rounded-xl text-[13px] font-medium border border-[#d1f4de]">
+                Excellent work! Your score improved by {improvement}% this week.
+              </div>
+            ) : (
+              <div className="bg-slate-50 text-slate-600 px-5 py-3.5 rounded-xl text-[13px] font-medium border border-slate-100">
+                Keep practicing consistently to see your scores improve!
+              </div>
+            )}
+          </div>
+
+          {/* Leaderboard/Streak Compact */}
+          <div className="flex flex-col gap-6">
+            <StreakCard />
+            <LeaderboardCard batchId={enrollments[0]?.batch?.id || null} />
           </div>
 
         </TabsContent>
