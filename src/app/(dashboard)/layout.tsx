@@ -47,7 +47,7 @@ export default function DashboardLayout({
       {/* Top Bar */}
       <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center">
-          <Image src="/images/vidyazo-logo.png" alt="Vidyazo Logo" width={48} height={48} className="rounded-full shadow-sm" priority />
+          <Image src="/images/vidyazo-logo.png" alt="Vidyazo Logo" width={48} height={48} className="rounded-full shadow-sm" priority fetchPriority="high" unoptimized />
         </div>
         <div className="flex items-center gap-3">
           <NotificationBell />

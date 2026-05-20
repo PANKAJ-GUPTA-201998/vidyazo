@@ -49,6 +49,8 @@ export function Navbar({ forceSolid = false }: { forceSolid?: boolean }) {
                 sizes="40px"
                 className="object-cover"
                 priority
+                fetchPriority="high"
+                unoptimized
               />
             </div>
             <span

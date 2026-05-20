@@ -9,9 +9,15 @@ export default async function DashboardPage() {
   let enrollments = [];
 
   try {
-    activeTest = await getActiveTestForStudent();
-    testSubmissions = await getMyTestSubmissions();
-    enrollments = await getMyEnrollments();
+    const [activeTestResult, testSubmissionsResult, enrollmentsResult] = await Promise.all([
+      getActiveTestForStudent(),
+      getMyTestSubmissions(),
+      getMyEnrollments()
+    ]);
+    
+    activeTest = activeTestResult;
+    testSubmissions = testSubmissionsResult;
+    enrollments = enrollmentsResult;
   } catch (error) {
     console.error("Error fetching student dashboard data", error);
   }

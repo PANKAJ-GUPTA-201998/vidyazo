@@ -106,6 +106,7 @@ export function HeroSection() {
                 sizes="(max-width: 640px) 90vw, (max-width: 1024px) 80vw, 50vw"
                 className="object-cover"
                 priority
+                unoptimized
               />
               {/* Floating UI Elements — hidden on very small screens */}
               <div className="hidden sm:block absolute top-6 left-6 glass rounded-xl p-3 sm:p-4 border border-white/20 animate-float">
