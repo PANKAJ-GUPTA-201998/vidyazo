@@ -25,9 +25,9 @@ const monthlyPlans = [
     period: "/month",
     popular: true,
     features: [
-      { text: "5 classes/week", key: false },
-      { text: "Weekly test + detailed report", key: false },
-      { text: "WhatsApp doubt support", key: false },
+      { text: "5 classes/week", key: true },
+      { text: "Weekly test + detailed report", key: true },
+      { text: "WhatsApp doubt support", key: true },
       { text: "Parent portal details", key: false },
       { text: "Monthly PTM", key: false },
       { text: "1 personal session/month", key: true },
@@ -41,7 +41,7 @@ const monthlyPlans = [
     popular: false,
     features: [
       { text: "5 classes/week", key: false },
-      { text: "2x weekly test", key: false },
+      { text: "2x weekly test", key: true },
       { text: "WhatsApp doubt support", key: false },
       { text: "Parent portal details", key: false },
       { text: "Monthly PTM", key: false },
@@ -74,9 +74,9 @@ const annualPlans = [
     saving: "1,489",
     badge: "Best Value",
     features: [
-      { text: "5 classes/week", key: false },
-      { text: "Weekly test + detailed report", key: false },
-      { text: "WhatsApp doubt support", key: false },
+      { text: "5 classes/week", key: true },
+      { text: "Weekly test + detailed report", key: true },
+      { text: "WhatsApp doubt support", key: true },
       { text: "Parent portal details", key: false },
       { text: "Monthly PTM", key: false },
       { text: "1 personal session/month", key: true },
@@ -91,7 +91,7 @@ const annualPlans = [
     saving: "2,989",
     features: [
       { text: "5 classes/week", key: false },
-      { text: "2x weekly test", key: false },
+      { text: "2x weekly test", key: true },
       { text: "WhatsApp doubt support", key: false },
       { text: "Parent portal details", key: false },
       { text: "Monthly PTM", key: false },
