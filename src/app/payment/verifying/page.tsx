@@ -33,11 +33,18 @@ export default function PaymentVerifyingPage() {
   const [state, setState] = useState<PageState>("polling");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
-  const startTimeRef = useRef<number>(Date.now());
+  const startTimeRef = useRef<number>(0);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  function clearAll() {
+    if (pollRef.current) clearInterval(pollRef.current);
+    if (timerRef.current) clearInterval(timerRef.current);
+  }
+
   useEffect(() => {
+    startTimeRef.current = Date.now();
+
     // Elapsed-seconds ticker for progress display
     timerRef.current = setInterval(() => {
       setElapsedSeconds(Math.floor((Date.now() - startTimeRef.current) / 1000));
@@ -74,11 +81,6 @@ export default function PaymentVerifyingPage() {
     return clearAll;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  function clearAll() {
-    if (pollRef.current) clearInterval(pollRef.current);
-    if (timerRef.current) clearInterval(timerRef.current);
-  }
 
   const progressPercent = Math.min(
     100,
@@ -167,8 +169,8 @@ export default function PaymentVerifyingPage() {
                   Verification Timed Out
                 </h1>
                 <p className="mt-2 text-sm text-white/50">
-                  We couldn't confirm your subscription within 30 seconds. Your
-                  payment may still be processing — please wait a minute and
+                  We couldn&apos;t confirm your subscription within 30 seconds. Your
+                  payment may still be processing &mdash; please wait a minute and
                   check your dashboard again.
                 </p>
               </div>

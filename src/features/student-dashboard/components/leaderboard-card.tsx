@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Trophy, Medal, Award } from "lucide-react";
-import { getLeaderboard } from "@/lib/actions/streaks";
-import { useUser } from "@/hooks/use-user";
+import { Trophy, Medal } from "lucide-react";
+import { getLeaderboard } from "@/features/student-dashboard/actions/streaks";
+import { useUser } from "@/features/auth/use-user";
 
 interface LeaderboardEntry {
   studentId: string;
@@ -21,7 +21,7 @@ const rankIcons = [
   <Medal key="bronze" className="w-5 h-5 text-amber-700" />,
 ];
 
-const rankBg = ["", "bg-yellow-50", "bg-gray-50", "bg-amber-50"];
+
 
 export function LeaderboardCard({ batchId }: { batchId: string | null }) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);

@@ -66,8 +66,8 @@ export default function LoginPage() {
         router.push("/dashboard");
         router.refresh();
       }
-    } catch (error: any) {
-      toast.error(error.message || "Authentication failed");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Authentication failed");
     } finally {
       setLoading(false);
     }

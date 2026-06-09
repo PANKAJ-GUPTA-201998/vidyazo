@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Trash2, Loader2, Video, GraduationCap } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,7 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { addTeacher, deleteTeacher } from "@/lib/actions/admin-crud";
+import { addTeacher, deleteTeacher } from "@/features/admin/actions";
 import type { Teacher } from "@/types/database";
 
 export default function TeachersClient({
@@ -42,8 +43,8 @@ export default function TeachersClient({
       toast.success("Teacher added successfully");
       setIsOpen(false);
       window.location.reload();
-    } catch (error: any) {
-      toast.error(error.message || "Failed to add teacher");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Failed to add teacher");
     } finally {
       setLoading(false);
     }
@@ -55,7 +56,7 @@ export default function TeachersClient({
       await deleteTeacher(id);
       setTeachers(teachers.filter((t) => t.id !== id));
       toast.success("Teacher deleted");
-    } catch (error: any) {
+    } catch {
       toast.error("Failed to delete teacher");
     }
   };
@@ -135,7 +136,7 @@ export default function TeachersClient({
             <CardContent className="p-4 flex items-start gap-4">
               <div className="w-16 h-16 rounded-xl bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                 {teacher.photo_url ? (
-                  <img src={teacher.photo_url} alt={teacher.full_name} className="w-full h-full object-cover" />
+                  <Image src={teacher.photo_url} alt={teacher.full_name || ""} fill className="object-cover" />
                 ) : (
                   <GraduationCap className="w-8 h-8 text-gray-400" />
                 )}

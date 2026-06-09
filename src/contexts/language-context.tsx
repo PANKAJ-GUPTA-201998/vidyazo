@@ -24,6 +24,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === "hi" || saved === "en") {
+      // eslint-disable-next-line
       setLangState(saved);
     }
   }, []);

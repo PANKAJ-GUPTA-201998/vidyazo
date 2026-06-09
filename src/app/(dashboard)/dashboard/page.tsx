@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getActiveTestForStudent, getMyTestSubmissions } from "@/lib/actions/tests";
-import { getMyEnrollments } from "@/lib/actions/students";
+import { getMyEnrollments } from "@/features/student-dashboard/actions/students";
 import DashboardClient from "./client";
 
 export default async function DashboardPage() {

@@ -2,7 +2,7 @@ import { Navbar } from "@/components/landing/navbar";
 import { HeroSection } from "@/components/landing/hero-section";
 import { StatsSection } from "@/components/landing/stats-section";
 import { FeaturesSection } from "@/components/landing/features-section";
-import { TeachersSection } from "@/components/landing/teachers-section";
+
 import { ResultsSection } from "@/components/landing/results-section";
 import { SubjectsSection } from "@/components/landing/subjects-section";
 import { HowItWorks } from "@/components/landing/how-it-works";
@@ -20,7 +20,7 @@ export default function LandingPage() {
       <StatsSection />
       <SubjectsSection />
       <FeaturesSection />
-      <TeachersSection />
+
       <ResultsSection />
       <HowItWorks />
       <ReportPreview />

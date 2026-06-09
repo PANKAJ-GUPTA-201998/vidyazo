@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getPayments, getPaymentSummary } from "@/lib/actions/payments";
+import { getPayments, getPaymentSummary } from "@/features/payments/actions";
 import PaymentsClient from "./client";
 import { format } from "date-fns";
 

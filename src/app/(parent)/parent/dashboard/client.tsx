@@ -14,10 +14,9 @@ import {
   Video,
   ClipboardCheck,
   Calendar,
-  IndianRupee,
-  TrendingUp,
   AlertCircle,
   GraduationCap,
+  TrendingUp,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,18 +24,18 @@ import { Button } from "@/components/ui/button";
 export default function ParentDashboardClient({
   childrenList,
 }: {
-  childrenList: any[];
+  childrenList: { id: string; avatar_url?: string; full_name?: string; class_grade?: string; board?: string }[];
 }) {
   const [selectedChild, setSelectedChild] = useState<string | null>(
     childrenList.length > 0 ? childrenList[0].id : null
   );
 
   const [data, setData] = useState<{
-    profile: any;
-    attendance: any[];
-    tests: any[];
-    classes: any[];
-    fee: any;
+    profile: unknown;
+    attendance: unknown[];
+    tests: unknown[];
+    classes: unknown[];
+    fee: unknown;
   } | null>(null);
 
   const [loading, setLoading] = useState(false);
@@ -69,7 +68,7 @@ export default function ParentDashboardClient({
         <div>
           <h2 className="text-xl font-bold text-[#1a1a2e]">No Children Linked</h2>
           <p className="text-gray-500 mt-1 max-w-sm">
-            We couldn't find any student accounts linked to your phone number.
+            We couldn&apos;t find any student accounts linked to your phone number.
             Please contact support if you think this is a mistake.
           </p>
         </div>

@@ -11,7 +11,7 @@ import {
   User,
   LogOut,
 } from "lucide-react";
-import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/features/auth/use-user";
 import { NotificationBell } from "@/components/dashboard/notification-bell";
 import { Loader2 } from "lucide-react";
 

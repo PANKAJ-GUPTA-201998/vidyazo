@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getStudents } from "@/lib/actions/students";
+import { getStudents } from "@/features/student-dashboard/actions/students";
 import StudentsClient from "./client";
 
 export default async function StudentsPage() {

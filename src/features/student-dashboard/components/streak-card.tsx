@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Flame, Trophy } from "lucide-react";
-import { getStreak, updateStreak } from "@/lib/actions/streaks";
+
+import { getStreak, updateStreak } from "@/features/student-dashboard/actions/streaks";
 import type { StudentStreak } from "@/types/database";
 
 export function StreakCard() {
@@ -34,13 +34,7 @@ export function StreakCard() {
   const streakCount = streak?.current_streak || 0;
   const longestStreak = streak?.longest_streak || 0;
 
-  const getMessage = () => {
-    if (streakCount === 0) return "Start your streak today! 🚀";
-    if (streakCount < 3) return "Great start! Keep going 💪";
-    if (streakCount < 7) return `${7 - streakCount} more days for your badge 🏅`;
-    if (streakCount < 14) return "Amazing! You're on fire! 🔥";
-    return "Unstoppable! You're a champion! 🏆";
-  };
+
 
   return (
     <div className="group bg-white/80 backdrop-blur-md rounded-[32px] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">

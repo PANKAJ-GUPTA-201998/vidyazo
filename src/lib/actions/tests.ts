@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Test, QuestionOption, TestSubmission, TopicScore } from "@/types/database";
 import { revalidatePath } from "next/cache";
-import { generateAIReport } from "./ai";
+import { generateAIReport } from "@/features/ai/actions";
 
 // ============================================================
 // TEST ACTIONS (Admin)

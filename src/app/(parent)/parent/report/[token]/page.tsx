@@ -1,7 +1,7 @@
 import { TrendingUp, TrendingDown, BookOpen, Award, Home, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { getLatestReportByToken } from "@/lib/actions/ai";
+import { getLatestReportByToken } from "@/features/ai/actions";
 
 export default async function ParentReportPage({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
@@ -101,7 +101,7 @@ export default async function ParentReportPage({ params }: { params: Promise<{ t
                 Topic Performance
               </h4>
               <div className="space-y-3">
-                {report.topics.map((topic: any) => (
+                {report.topics.map((topic: { name: string; score: number; bgColor: string; color: string }) => (
                   <div key={topic.name}>
                     <div className="flex justify-between text-sm mb-1.5">
                       <span className="text-gray-700 font-medium">

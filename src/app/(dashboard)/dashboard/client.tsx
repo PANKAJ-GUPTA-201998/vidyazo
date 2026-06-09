@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/features/auth/use-user";
 import {
   Video,
   ClipboardCheck,
@@ -9,19 +9,13 @@ import {
   BookOpen,
   Flame,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
+
 import Link from "next/link";
-import { StreakCard } from "@/components/dashboard/streak-card";
-import { LeaderboardCard } from "@/components/dashboard/leaderboard-card";
+import { StreakCard } from "@/features/student-dashboard/components/streak-card";
+import { LeaderboardCard } from "@/features/student-dashboard/components/leaderboard-card";
 import { StudyMaterialsTab } from "@/components/dashboard/study-materials-tab";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 
 type ActiveTest = {
   id: string;

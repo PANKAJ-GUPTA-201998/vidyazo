@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateMonthlyPayments } from "@/lib/actions/payments";
+import { generateMonthlyPayments } from "@/features/payments/actions";
 
 /**
  * POST /api/cron/monthly-payments

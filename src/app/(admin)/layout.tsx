@@ -19,7 +19,7 @@ import {
   Award,
   FileText,
 } from "lucide-react";
-import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/features/auth/use-user";
 import { Loader2 } from "lucide-react";
 
 const sidebarItems = [

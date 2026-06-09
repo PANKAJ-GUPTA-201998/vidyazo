@@ -124,8 +124,8 @@ export function ResultsSection() {
                     </h3>
                     <p className="text-xs text-gray-500">
                       Class {result.class_grade} • {result.board}
-                      {(result as any).city && (
-                        <span className="ml-1 text-gray-400">({(result as any).city})</span>
+                      {result.city && (
+                        <span className="ml-1 text-gray-400">({result.city})</span>
                       )}
                     </p>
                   </div>

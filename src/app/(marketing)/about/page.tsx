@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
-import { TeachersSection } from "@/components/landing/teachers-section";
+
 import { WhatsAppFloat } from "@/components/landing/whatsapp-float";
 import { Heart, Target, Users, BookOpen, TrendingUp, GraduationCap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -86,7 +86,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team / Teachers */}
-      <TeachersSection />
+
 
       {/* Numbers */}
       <section className="py-20 bg-white">

@@ -56,6 +56,7 @@ export function NotificationBell() {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line
     fetchNotifications();
 
     // Real-time subscription

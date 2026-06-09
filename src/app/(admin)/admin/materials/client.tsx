@@ -20,15 +20,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { addMaterial, deleteMaterial } from "@/lib/actions/admin-crud";
+import { addMaterial, deleteMaterial } from "@/features/admin/actions";
 import type { StudyMaterial } from "@/types/database";
 
 export default function MaterialsClient({
   initialMaterials,
   batches,
 }: {
-  initialMaterials: (StudyMaterial & { batch?: any })[];
-  batches: any[];
+  initialMaterials: (StudyMaterial & { batch?: unknown })[];
+  batches: unknown[];
 }) {
   const [materials, setMaterials] = useState(initialMaterials);
   const [isOpen, setIsOpen] = useState(false);
@@ -62,8 +62,8 @@ export default function MaterialsClient({
       toast.success("Material added successfully");
       setIsOpen(false);
       window.location.reload();
-    } catch (error: any) {
-      toast.error(error.message || "Failed to add material");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Failed to add material");
     } finally {
       setLoading(false);
     }
@@ -75,7 +75,7 @@ export default function MaterialsClient({
       await deleteMaterial(id);
       setMaterials(materials.filter((m) => m.id !== id));
       toast.success("Material deleted");
-    } catch (error: any) {
+    } catch {
       toast.error("Failed to delete material");
     }
   };

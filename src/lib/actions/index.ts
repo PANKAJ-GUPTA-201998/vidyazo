@@ -1,7 +1,7 @@
 // Action barrel exports for easy importing
-export * from "./students";
+export * from "@/features/student-dashboard/actions/students";
 export * from "./tests";
 export * from "./classes";
-export * from "./payments";
+export * from "@/features/payments/actions";
 export * from "./reports";
 export * from "./notifications";

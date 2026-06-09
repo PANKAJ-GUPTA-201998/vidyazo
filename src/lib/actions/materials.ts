@@ -18,8 +18,8 @@ export async function getStudentMaterials() {
 
   const classGrade = profile.class_grade;
   const activeBatchIds = profile.enrollments
-    .filter((e: any) => e.status === "active")
-    .map((e: any) => e.batch_id);
+    .filter((e: { status: string; batch_id: string }) => e.status === "active")
+    .map((e: { status: string; batch_id: string }) => e.batch_id);
 
   const isActiveSubscriber = activeBatchIds.length > 0;
 

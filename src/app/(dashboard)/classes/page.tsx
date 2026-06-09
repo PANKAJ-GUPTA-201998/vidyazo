@@ -1,4 +1,4 @@
-import { getMyEnrollments } from "@/lib/actions/students";
+import { getMyEnrollments } from "@/features/student-dashboard/actions/students";
 import { getStudentRecordings } from "@/lib/actions/classes";
 import ClassesClient from "./client";
 import { addDays, setHours, setMinutes, isToday as dateFnsIsToday, startOfDay } from "date-fns";

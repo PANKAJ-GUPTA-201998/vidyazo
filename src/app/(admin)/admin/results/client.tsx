@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Trash2, Loader2, Quote, Award } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { addResult, deleteResult } from "@/lib/actions/admin-crud";
+import { addResult, deleteResult } from "@/features/admin/actions";
 import type { StudentResult } from "@/types/database";
 
 export default function ResultsClient({
@@ -43,8 +44,8 @@ export default function ResultsClient({
       toast.success("Result added successfully");
       setIsOpen(false);
       window.location.reload();
-    } catch (error: any) {
-      toast.error(error.message || "Failed to add result");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Failed to add result");
     } finally {
       setLoading(false);
     }
@@ -56,7 +57,7 @@ export default function ResultsClient({
       await deleteResult(id);
       setResults(results.filter((r) => r.id !== id));
       toast.success("Result deleted");
-    } catch (error: any) {
+    } catch {
       toast.error("Failed to delete result");
     }
   };
@@ -149,7 +150,7 @@ export default function ResultsClient({
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center overflow-hidden">
                     {result.student_photo_url ? (
-                      <img src={result.student_photo_url} alt={result.student_name} className="w-full h-full object-cover" />
+                      <Image src={result.student_photo_url} alt={result.student_name} fill className="object-cover" />
                     ) : (
                       <Award className="w-6 h-6 text-green-500" />
                     )}
@@ -186,7 +187,7 @@ export default function ResultsClient({
               {result.parent_quote && (
                 <div className="flex gap-2 text-sm text-gray-600 italic bg-amber-50/50 p-3 rounded-xl border border-amber-100/50">
                   <Quote className="w-4 h-4 text-amber-300 flex-shrink-0" />
-                  <p className="leading-tight">"{result.parent_quote}"</p>
+                  <p className="leading-tight">&quot;{result.parent_quote}&quot;</p>
                 </div>
               )}
             </CardContent>

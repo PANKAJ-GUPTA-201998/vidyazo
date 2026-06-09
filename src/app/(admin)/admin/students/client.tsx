@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/select";
 import { BOARDS, CLASS_GRADES } from "@/lib/constants";
 
-import { createStudent } from "@/lib/actions/students";
+import { createStudent } from "@/features/student-dashboard/actions/students";
 import { toast } from "sonner";
 
 const planColors: Record<string, string> = {

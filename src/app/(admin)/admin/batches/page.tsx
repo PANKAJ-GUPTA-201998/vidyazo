@@ -1,4 +1,4 @@
-import { getBatches } from "@/lib/actions/students";
+import { getBatches } from "@/features/student-dashboard/actions/students";
 import BatchesClient from "./client";
 
 export default async function BatchesPage() {

@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { CLASS_GRADES, BOARDS } from "@/lib/constants";
 
-import { createBatch } from "@/lib/actions/students";
+import { createBatch } from "@/features/student-dashboard/actions/students";
 import { toast } from "sonner";
 
 const dayNames: Record<string, string> = {

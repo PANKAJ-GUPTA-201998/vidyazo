@@ -8,9 +8,8 @@ import {
   BarChart3,
   CreditCard,
   LogOut,
-  Users,
 } from "lucide-react";
-import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/features/auth/use-user";
 import { Loader2 } from "lucide-react";
 
 export default function ParentLayout({

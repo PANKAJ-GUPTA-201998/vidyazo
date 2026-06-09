@@ -33,8 +33,8 @@ export default function ParentLoginPage() {
       if (error) throw error;
       setStep("otp");
       toast.success("OTP sent to your phone");
-    } catch (error: any) {
-      toast.error(error.message || "Failed to send OTP");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Failed to send OTP");
     } finally {
       setLoading(false);
     }
@@ -61,8 +61,8 @@ export default function ParentLoginPage() {
       toast.success("Login successful!");
       router.push("/parent/dashboard");
       router.refresh();
-    } catch (error: any) {
-      toast.error(error.message || "Invalid OTP");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Invalid OTP");
     } finally {
       setLoading(false);
     }
@@ -80,7 +80,7 @@ export default function ParentLoginPage() {
             className="mx-auto rounded-2xl shadow-sm mb-4"
           />
           <h1 className="text-2xl font-bold text-[#1a1a2e]">Parent Portal</h1>
-          <p className="text-gray-500 mt-1">Track your child's progress</p>
+          <p className="text-gray-500 mt-1">Track your child&apos;s progress</p>
         </div>
 
         {step === "phone" ? (
