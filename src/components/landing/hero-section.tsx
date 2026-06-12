@@ -96,41 +96,67 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - Image */}
+          {/* Right Column - Form */}
           <div className="flex-1 w-full max-w-sm sm:max-w-md lg:max-w-none relative animate-slide-up stagger-5">
-            <div className="relative rounded-2xl overflow-hidden glass border border-white/10 shadow-2xl shadow-[#e94560]/20 aspect-[4/3] sm:aspect-square lg:aspect-auto lg:h-[560px] w-full">
+            <div className="relative rounded-2xl overflow-hidden glass border border-white/10 shadow-2xl shadow-[#e94560]/20 lg:h-[560px] w-full p-6 sm:p-8 flex flex-col justify-center">
+              {/* Background Image */}
               <Image 
-                src="/images/hero-student.png" 
-                alt="Student using Vidyazo" 
+                src="/images/transparent-hero-bg.png" 
+                alt="Abstract Background" 
                 fill 
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 80vw, 50vw"
-                className="object-cover"
+                className="object-cover opacity-70 mix-blend-overlay"
                 priority
                 unoptimized
               />
-              {/* Floating UI Elements — hidden on very small screens */}
-              <div className="hidden sm:block absolute top-6 left-6 glass rounded-xl p-3 sm:p-4 border border-white/20 animate-float">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
-                  </div>
-                  <div>
-                    <p className="text-white text-xs sm:text-sm font-bold">Algebra Test</p>
-                    <p className="text-white/70 text-[10px] sm:text-xs">Score: 95% (+12%)</p>
-                  </div>
-                </div>
-              </div>
               
-              <div className="hidden sm:block absolute bottom-6 right-6 glass rounded-xl p-3 sm:p-4 border border-white/20 animate-float stagger-2">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#e94560]/20 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#e94560]" />
-                  </div>
-                  <div>
-                    <p className="text-white text-xs sm:text-sm font-bold">Smart Feedback</p>
-                    <p className="text-white/70 text-[10px] sm:text-xs">Concept clear!</p>
-                  </div>
+              <div className="relative z-10 w-full max-w-sm mx-auto backdrop-blur-md bg-[#1a1a2e]/40 p-6 rounded-2xl border border-white/10">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">Book a Free Trial</h3>
+                  <p className="text-white/70 text-sm">Experience the Vidyazo difference today.</p>
                 </div>
+                
+                <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); }}>
+                  <div>
+                    <label className="block text-sm font-medium text-white/80 mb-1.5">Full Name</label>
+                    <input 
+                      type="text" 
+                      placeholder="Enter your name" 
+                      className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#e94560] transition-all"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-white/80 mb-1.5">Phone Number</label>
+                    <div className="flex gap-2">
+                      <div className="flex items-center justify-center px-4 rounded-xl bg-white/10 border border-white/20 text-white/80 font-medium text-sm">
+                        +91
+                      </div>
+                      <input 
+                        type="tel" 
+                        placeholder="10-digit number" 
+                        className="flex-1 h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#e94560] transition-all"
+                        maxLength={10}
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-white/80 mb-1.5">Class / Grade</label>
+                    <select className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#e94560] transition-all appearance-none [&>option]:text-gray-900">
+                      <option value="" disabled selected>Select Class</option>
+                      {[6, 7, 8, 9, 10, 11, 12].map(c => (
+                        <option key={c} value={c}>Class {c}</option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full h-12 mt-4 gradient-accent text-white rounded-xl text-base font-semibold hover:shadow-lg hover:shadow-[#e94560]/30 transition-all duration-300"
+                  >
+                    Request Callback
+                  </Button>
+                </form>
               </div>
             </div>
           </div>
