@@ -1,49 +1,46 @@
-# VIDYAZO - AI-Powered Online Tuition Platform
+# VIDYAZO - online tuition platform (Class 6-12, India)
+Batch classes, 1-on-1, weekly AI tests, AI progress reports sent to parents via WhatsApp.
+Live on Vercel: **push to main = production deploy.** Never push to main without being asked.
 
-## Project Overview
-Vidyazo is an online tuition platform for Indian school students (Class 6-10).
-It offers batch classes, 1-on-1 sessions, weekly AI tests, and AI-generated
-progress reports sent to parents via WhatsApp.
+## Token rule
+Before searching code, check docs/CODEMAP.md. Open only the files it points to.
+Status/next work: docs/STATUS.md, docs/ROADMAP.md. Past choices: docs/DECISIONS.md.
 
-## Tech Stack
-- Frontend: Next.js 14 (App Router) + TypeScript + Tailwind + shadcn/ui
-- Backend: Next.js API Routes
-- Database: Supabase (PostgreSQL)
-- Auth: Supabase Auth (Phone OTP)
-- AI: Anthropic Claude API (claude-haiku-4-5-20251001)
-- Payments: Razorpay
-- WhatsApp: AiSensy API
-- Hosting: Vercel
-- State: Zustand
+## Stack
+- Next.js 16.2 (App Router, webpack) + React 19 + TypeScript + Tailwind 4 + shadcn/ui (base-ui)
+- Supabase (Postgres + RLS + phone OTP auth) via @supabase/ssr
+- AI: Anthropic SDK (`@anthropic-ai/sdk`); Razorpay payments; WhatsApp via custom API (`src/lib/whatsapp.ts`)
+- State: Zustand. Icons: lucide-react. Toasts: sonner (react-hot-toast also present in 2 layouts)
+- AGENTS.md: this Next.js has breaking changes; check `node_modules/next/dist/docs/` before using unfamiliar APIs.
 
-## Key Business Rules
-- 3 plans: Batch (Rs 599/mo), Hybrid (Rs 1099/mo), 1-on-1 (Rs 2999/mo)
-- Batch max capacity: 25 students
-- Weekly test every Sunday
-- AI report generated Monday morning, sent to parent WhatsApp
-- Parent view via magic link (no login needed)
-- Admin is single user (owner/tutor)
+## Layout (src/)
+- `app/(marketing)`, `app/page.tsx` public pages; `app/(auth)` login/onboarding
+- `app/(dashboard)` student; `app/(admin)/admin` owner; `app/(parent)/parent` parent
+- `app/api/{cron,webhooks,tests,subscription,auth}` route handlers
+- `features/*` and `lib/actions/*` server actions (two overlapping styles, see CODEMAP)
+- `components/{ui,landing,dashboard,shared}`, `lib/` (supabase, razorpay, whatsapp, access-control), `types/database.ts`
+- `proxy.ts` = auth/role/subscription middleware (Next 16 name). `supabase/` = SQL schema + migrations (run manually in Supabase).
+- Page pattern: `page.tsx` (server, fetch) + `client.tsx` (interactive UI).
 
-## Coding Conventions
-- Use TypeScript strict mode
-- Use server components by default, 'use client' only when needed
-- Use Supabase RLS for all data access
-- API routes use Supabase service role for admin ops
-- All prices in paise (multiply by 100 for Razorpay)
-- Dates in IST (Asia/Kolkata timezone)
-- Hindi support in AI reports (bilingual Hindi+English)
-- Mobile-first responsive design
-- Use lucide-react for icons
-- Use sonner for toast notifications
-- File naming: kebab-case for files, PascalCase for components
+## Commands
+- `npm run dev` / `npm run build` / `npm run lint`
+- No test suite exists. Verify with `npm run lint` and `npx tsc --noEmit`; build ignores TS errors (`next.config.ts`), so run tsc yourself.
+- Deploy: push to `main` -> Vercel. Crons in `vercel.json` (Bearer `CRON_SECRET`).
+- Env vars (no .env.example in repo): NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY,
+  ANTHROPIC_API_KEY, RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, NEXT_PUBLIC_RAZORPAY_KEY_ID, RAZORPAY_WEBHOOK_SECRET,
+  RAZORPAY_PRO_PLAN_IDS, WHATSAPP_API_URL, WHATSAPP_API_KEY, CRON_SECRET, NEXT_PUBLIC_APP_URL
 
-## Database Tables
-profiles, batches, enrollments, classes, attendance,
-tests, test_submissions, ai_reports, payments, parent_tokens
+## Business rules
+- Plans: Batch / Hybrid / 1-on-1. Prices live in `src/lib/constants.ts` (source of truth; paise). Batch max 25.
+- Weekly test Sunday; AI report Monday (cron `0 1:30 UTC Mon`), sent to parent WhatsApp.
+- Parents: magic-link report `/parent/report/[token]` (no login) plus parent login/dashboard.
+- Roles: admin / parent / student (profiles.role). Admin is a single owner.
 
-## Important Paths
-- Landing: /
-- Student Dashboard: /dashboard
-- Take Test: /test/[id]
-- Admin: /admin
-- Parent View: /parent/[token]
+## Coding rules
+- TypeScript strict; server components by default, `'use client'` only when needed.
+- Supabase RLS for user data; service-role client only in server actions/API routes, never in client or proxy.
+- Money in paise (Razorpay takes paise). Dates in IST (Asia/Kolkata).
+- AI reports bilingual Hindi + English. Mobile-first UI.
+- Files kebab-case (existing exceptions: TestClient.tsx, PremiumGate.tsx); components PascalCase.
+- Keep changes small; do not add new dependencies or refactor unrelated code. Update docs/CODEMAP.md when files move.
+- Because main deploys live, avoid risky changes without lint/tsc passing.
