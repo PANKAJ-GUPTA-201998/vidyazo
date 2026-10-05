@@ -1,15 +1,16 @@
 # ROADMAP (tick tasks with [x]; /next does the first unchecked one)
 
 ## Phase 1 -
-- [ ]
+_(add tasks as `- [ ] ...`)_
 
 ## Phase 2 -
-- [ ]
+_(add tasks as `- [ ] ...`)_
 
 ## Phase 3 -
-- [ ]
+_(add tasks as `- [ ] ...`)_
 
 ## Cleanup ideas (safest first)
+- [ ] Make cron routes weekly-report + monthly-payments export GET (Vercel cron uses GET); currently 405
 - [ ] Add .env.example listing env vars (no code change)
 - [ ] Add missing /account-suspended page (proxy redirects there)
 - [x] Remove duplicate test route src/app/test/[testId] (it broke the build: ambiguous /test/[*])

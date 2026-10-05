@@ -3,13 +3,14 @@
 ## Works (Vercel deploys failed 2026-06-12 to 2026-10-05 from a duplicate route; fixed in PR #1)
 - Marketing site, student dashboard, admin panel (students, batches, teachers, tests, results, materials, payments, reports), parent dashboard + magic-link report
 - Phone OTP auth with role/status/subscription gate (src/proxy.ts)
-- Razorpay order + webhook; weekly AI report cron; WhatsApp sending
+- Razorpay order + webhook; WhatsApp sending helpers
 - Notifications, streaks, leaderboard, PWA offline page
 
 ## Next
 - See docs/ROADMAP.md (no phases filled in yet)
 
 ## Known bugs / risks
+- BROKEN: Vercel crons call GET, but api/cron/weekly-report and api/cron/monthly-payments export only POST -> 405; weekly reports + monthly payments never run.
 - `next.config.ts` has `ignoreBuildErrors: true` -> type errors ship silently; run `npx tsc --noEmit`.
 - No automated tests, no .env.example.
 - Prices differ: constants.ts (899/1499/2999) vs CLAUDE.md original brief (599/1099/2999). Confirm intended.

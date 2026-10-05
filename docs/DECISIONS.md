@@ -7,7 +7,7 @@
 - Anthropic Claude generates weekly reports; Haiku 4.5 is the intended model.
 - Razorpay for payments with webhook confirmation; amounts in paise.
 - WhatsApp delivery via a generic HTTP API (WHATSAPP_API_URL/KEY) in src/lib/whatsapp.ts.
-- Vercel crons (vercel.json) protected by CRON_SECRET bearer: weekly reports Mon 01:30 UTC, monthly payments 1st 00:00 UTC.
+- Vercel crons (vercel.json, invoked via GET) protected by CRON_SECRET bearer: weekly reports Mon 01:30 UTC, monthly payments 1st 00:00 UTC.
 - Parents view reports via token link without login, plus optional parent login.
 - Plan prices centralised in src/lib/constants.ts.
 - Build uses webpack (`--webpack`) and ignores TS errors to keep deploys unblocked.
