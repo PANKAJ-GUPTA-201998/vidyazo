@@ -1,0 +1,15 @@
+# DECISIONS (one line each)
+- Next.js App Router with route groups per role: (marketing), (auth), (dashboard), (admin), (parent).
+- Supabase for DB + phone OTP auth; RLS for user data, service role only server-side.
+- Role/status/subscription enforcement centralised in src/proxy.ts (Next 16 middleware name).
+- Pages split into server `page.tsx` + client `client.tsx`.
+- Mutations via server actions in lib/actions and features/*; REST routes only for cron, webhooks, callbacks.
+- Anthropic Claude generates weekly reports; Haiku 4.5 is the intended model.
+- Razorpay for payments with webhook confirmation; amounts in paise.
+- WhatsApp delivery via a generic HTTP API (WHATSAPP_API_URL/KEY) in src/lib/whatsapp.ts.
+- Vercel crons (vercel.json) protected by CRON_SECRET bearer: weekly reports Mon 01:30 UTC, monthly payments 1st 00:00 UTC.
+- Parents view reports via token link without login, plus optional parent login.
+- Plan prices centralised in src/lib/constants.ts.
+- Build uses webpack (`--webpack`) and ignores TS errors to keep deploys unblocked.
+- DB changes shipped as manual SQL files in supabase/ (no migration runner).
+- PWA via next-pwa with offline fallback page.
