@@ -12,7 +12,7 @@
 ## Cleanup ideas (safest first)
 - [ ] Add .env.example listing env vars (no code change)
 - [ ] Add missing /account-suspended page (proxy redirects there)
-- [ ] Decide on and remove duplicate test route (src/app/test/[testId] vs src/app/(dashboard)/test/[id])
+- [x] Remove duplicate test route src/app/test/[testId] (it broke the build: ambiguous /test/[*])
 - [ ] Remove unused dep @google/generative-ai; standardize on sonner (drop react-hot-toast)
 - [ ] Merge duplicate generateAIReport (lib/actions/reports.ts vs features/ai/actions.ts); one model constant
 - [ ] Schedule or delete api/cron/class-reminders

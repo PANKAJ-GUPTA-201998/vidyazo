@@ -26,8 +26,7 @@
 - Notifications: src/components/dashboard/notification-bell.tsx; src/lib/actions/notifications.ts
 
 ## Tests
-- Take test (in dashboard): src/app/(dashboard)/test/[id]/{page.tsx,TestClient.tsx}
-- Take test (duplicate, top-level): src/app/test/[testId]/{page,client}.tsx
+- Take test: src/app/(dashboard)/test/[id]/{page.tsx,TestClient.tsx}
 - Submit API: src/app/api/tests/submit/route.ts
 - Test actions (list/create/submit/score): src/lib/actions/tests.ts
 - Admin list/create: src/app/(admin)/admin/tests/{page,client}.tsx, tests/create/{page,client}.tsx
